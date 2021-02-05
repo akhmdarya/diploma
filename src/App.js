@@ -1,11 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import PrimarySearchAppBar from './Components/Header'
+import SpacingGrid from './Components/Grid'
+import SimpleContainer from './Components/Container'
+import BasicTextFields from './Components/TextField'
+
 
 function App() {
+ 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {/* <header className="App-header"> */}
+        {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -16,8 +23,12 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
-      </header>
+        </a> */}
+      {/* </header> */}
+      <PrimarySearchAppBar/>
+      <SimpleContainer/>
+  
+      {/* <SpacingGrid/> */}
     </div>
   );
 }
