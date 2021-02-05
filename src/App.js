@@ -1,9 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import PrimarySearchAppBar from './Components/Header'
+import Header from './Components/Header'
 import SpacingGrid from './Components/Grid'
 import SimpleContainer from './Components/Container'
-import BasicTextFields from './Components/TextField'
+import ResultPage from './Components/pages/ResultPage'
+// import ResultPage from './Components/pages/login/LoginPage'
+// import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 function App() {
@@ -11,24 +14,22 @@ function App() {
 
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-      {/* </header> */}
-      <PrimarySearchAppBar/>
-      <SimpleContainer/>
-  
-      {/* <SpacingGrid/> */}
+    
+      <Header/>
+
+     
+     <BrowserRouter>
+            
+      <Switch>
+              
+          <Route path="/result/:url" component={ResultPage} />
+          {/* <Route path="/login" component={LoginPage} />
+         */}
+ <SimpleContainer/>
+         
+              </Switch>
+  </BrowserRouter>
+     
     </div>
   );
 }

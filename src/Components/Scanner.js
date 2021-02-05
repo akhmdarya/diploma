@@ -15,12 +15,24 @@
 
 
 
+
 var express = require("express");
+var cors = require('cors');
 var app = express();
 app.listen(4400, () => {
  console.log("Server running on port 4400");
 });
+app.use(cors())
+// var corsOptions = {
+  
+//     "origin": "*",
+//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     "preflightContinue": false,
+//     "optionsSuccessStatus": 204
+  
+// }
 
+// app.use(cors(corsOptions));
 
 app.get("/parse",async (req, res, next) => {
   const queryObject = req.query.url;
@@ -242,14 +254,15 @@ const getData = async (url) => {
   // if (process.argv.length > 2) {
     // const arg = process.argv[2];
     async function checker(url1) {
-        let response ='';
+        let response =[];
           const arg = url1;
           const url = arg.startsWith('http') ? arg : 'https://' + arg;
           const data = await getData(url);
           for (key of Object.keys(data)) {
             // console.log('==' + key + '==');
             for (record of data[key]) {
-              response+=JSON.stringify(record);
+              response.push(record)
+              /// response+=JSON.stringify(record);
               // console.log(JSON.stringify(record));
             }
           }

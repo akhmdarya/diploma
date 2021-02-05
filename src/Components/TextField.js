@@ -3,6 +3,7 @@ import React,{useState, useEffect} from 'react'
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { checkURL } from './utils';
+import { Link, useParams } from 'react-router-dom';
 // import { checker} from "../Components/Scanner";
 
 // const puppeteer = require('puppeteer');
@@ -70,16 +71,17 @@ import { checkURL } from './utils';
       <input  value={fields.url} name="url"  onChange={e => fieldChange('url', e.target.value)}  id="outlined-basic"  />
      </div>
 
-      <Button type='submit'
+     
+     <Button type='submit'
         variant="contained"
         color="primary"
        style={styles.butt}
        onClick={onSubmit}
         endIcon={<SaveIcon />}
-      >
+      ><Link to= {`/result/${fields.url}`}> 
         Check Web-Site!
         
-      </Button>
+     </Link>  </Button>
       <div>
       {error && <>{error}</>}
       {message && <>{message}</>}
