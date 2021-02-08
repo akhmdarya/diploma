@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 
 import Container from '@material-ui/core/Container';
-import TextField from './TextField'
+import TextFieldComponent from './TextField'
 
 const styles= {
     main: {
@@ -25,7 +25,7 @@ export default function SimpleContainer() {
 
         <Typography style={styles.main} component="div"      >
         
-<TextField />
+<TextFieldComponent />
 </Typography>
 
       

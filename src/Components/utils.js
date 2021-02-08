@@ -1,6 +1,6 @@
 export const checkURL = (url) =>{
     return new Promise((resolve, reject) =>{
-       
+      
         if (url.length < 3 ){
             reject ("URL too short!");
         }
@@ -8,6 +8,8 @@ export const checkURL = (url) =>{
             reject ("incorrect URL!");
         }
         resolve ("Valid URL")
+      
+       
   
 }
 )

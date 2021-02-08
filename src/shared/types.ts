@@ -4,10 +4,10 @@ export interface Info {
     name: string;
     country: string;
     organization: string;
-    image: string;
-    locale: string;
-    visited: boolean;
-    is_published: boolean;
+    value: string;
+    path: string;
+    HttpOnly: boolean;
+    Secure: boolean;
     created_by: string;
     updated_by: string;
     created_at: string;
