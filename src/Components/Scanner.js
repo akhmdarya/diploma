@@ -1,21 +1,3 @@
-// const http = require('http');
-
-// const hostname = '127.0.0.1';
-// const port = 4000;
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.end('Hello World');
-// });
-
-// server.listen(port, hostname, () => {
-//   checker("dl.iitu.kz")
-// });
-
-
-
-
 var express = require("express");
 var cors = require('cors');
 var app = express();
@@ -241,25 +223,21 @@ const getData = async (url) => {
     data.cookies.push(cookie);
   }
   for (key of Object.keys(browserData.sessionStorage)) {
-    data.sessionStorage.push({ key: key, value: browserData.sessionStorage[key] });
+    data.sessionStorage.push({ key: key, value: browserData.sessionStorage[key],type: "session"});
   }
   for (key of Object.keys(browserData.localStorage)) {
-    data.localStorage.push({ key: key, value: browserData.localStorage[key] });
+    data.localStorage.push({ key: key, value: browserData.localStorage[key],type: "local" });
   }
   return data;
 };
 
-// export async function checker(url1) {
-// export const checker = (url) => {
-  // if (process.argv.length > 2) {
-    // const arg = process.argv[2];
     async function checker(url1) {
         let response =[];
           const arg = url1;
           const url = arg.startsWith('http') ? arg : 'https://' + arg;
           const data = await getData(url);
           for (key of Object.keys(data)) {
-            // console.log('==' + key + '==');
+            console.log('==' + key + '==');
             for (record of data[key]) {
               response.push(record)
               /// response+=JSON.stringify(record);

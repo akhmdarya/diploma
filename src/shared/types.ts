@@ -6,12 +6,12 @@ export interface Info {
     organization: string;
     value: string;
     path: string;
-    HttpOnly: boolean;
-    Secure: boolean;
-    created_by: string;
-    updated_by: string;
-    created_at: string;
-    updated_at: string;
+    httpOnly: boolean;
+    secure: boolean;
+    expires: number;
+    priority: string;
+    type: string;
+    key: string;
     editors_choice: boolean;
     author_id: number;
     category_id: number;
@@ -23,6 +23,9 @@ export interface Info {
     likesCount?: number;
     commentsCount?: number;
 }
+
+    
+
 export interface Article {
     id: number;
     title: string;

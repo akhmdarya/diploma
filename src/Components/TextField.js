@@ -90,17 +90,12 @@ import SendIcon from '@material-ui/icons/Send';
     const onSubmit = () => {
       seturl1(fields.url.replace(/(^\w+:|^)\/\//, ''));
       console.log('Form submitted', fields);
-  
-   
-   
   }
   const clearMessages = () =>{
     setMessage('');
    
     setError('');
-
 }
-
   useEffect(() => {
     clearMessages();
     seturl1(fields.url.replace(/(^\w+:|^)\/\//, ''));

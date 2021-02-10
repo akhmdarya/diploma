@@ -7,8 +7,12 @@ import TextFieldComponent from './TextField'
 
 const styles= {
     main: {
+      paddingTop: '100px',
         backgroundColor: '#cfe8fc', height: '100vh',
         position: "relative",
+    },
+    container:{
+      paddingTop: '100px',
     }
 }
 export default function SimpleContainer() {
@@ -18,9 +22,9 @@ export default function SimpleContainer() {
     <React.Fragment>
       <CssBaseline />
       
-      <Container  component="div" maxWidth="lg">
+      <Container component="div" maxWidth="lg">
   
-        <div>  
+        <div  >  
 
 
         <Typography style={styles.main} component="div"      >

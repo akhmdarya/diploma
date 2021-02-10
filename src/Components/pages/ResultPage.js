@@ -4,15 +4,17 @@
  import CircularProgress from '@material-ui/core/CircularProgress';
  import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
  import 'semantic-ui-css/semantic.min.css'
- import {checkURL} from '../utils'
+ import {checkURL,dateTime} from '../utils'
 
 //  import { getCheckResult } from '../../shared/api';
 //  import { Article } from '../shared/types';
 //  import { getArticle } from '../../shared/api';
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, makeStyles, Typography} from '@material-ui/core';
 
- import LayerIcon from '@material-ui/icons/Layers';
- import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+ import TableCookies from '../pages/Tables/TableCookies';
+ import TableDomain from '../pages/Tables/TableDomain';
+ import TableStorages from '../pages/Tables/TableStorages';
+ import paper from "../../assets/images/paper1.png";
  import { useParams } from 'react-router-dom';
  import {getCheckResult} from '../../shared/api'
  import Table from '@material-ui/core/Table';
@@ -29,7 +31,8 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
        flexWrap: "wrap"
      },
      container: {
-       flexWrap: "wrap"
+       flexWrap: "wrap",
+       marginBottom:'20px'
      },
      loader: {
       display: 'flex',
@@ -38,7 +41,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
       },
     },
     table:{
-     
+      marginTop:theme.spacing(4),
       maxWidth: "1440px",
     }
    ,
@@ -81,21 +84,22 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
    cardContent:{
      flexGrow:1
    },
+   mainFeaturesPost:{
+ 
+    padding: theme.spacing(10),
+    height: "200px"
+   },
    cardGrid:{
      marginTop:theme.spacing(4),
      paddingBottom:"56.25%",
+   },
+   text:{
+     color:"white"
    }
    
    
    }))
-  //  function createData(domain, ping, hostname, eu, country,organization) {
-  //   return { domain, ping, hostname, eu, country,organization};
-  // }
-  
-  // const rows = [
-  //   createData(),
-    
-  // ];
+
    
  const ResultPage  = ()=>{
  
@@ -133,139 +137,62 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
 
      
      const classes = useStyles();
- 
+
  
      return(
          <>
          <main>
-        
-         <div >
+      
+         <div className={classes.container}>
+         <Paper className={classes.mainFeaturesPost}
+        style={{backgroundImage:`url(${paper})` }}>
            <Container maxWidth="sm">
-             <Typography variant="h2" align="center" color="textPrimary" gutterBottom>News</Typography>
-             <Typography variant="h5" align="center" color="textSecondary" gutterBottom>Текст, что тут будут самые свежие новости</Typography>
+             {/* <Typography variant="h5" align="center" color="textPrimary" gutterBottom>GDPR</Typography> */}
+             <Typography variant="h5" align="center" className={classes.text} color="textSecondary" gutterBottom>GDPR - new data processing rules in Europe for the international IT market.</Typography>
            <div >
              <Grid container spacing={5} justify="center">
                <Grid item>
-                 <Button variant="contained" color="primary"> Start Now</Button>
+                 {/* <Button variant="contained" color="primary"> Start Now</Button> */}
                  </Grid>
                  <Grid item>
-                 <Button variant="outlined" color="primary"> Learn More</Button>
+                 {/* <Button variant="outlined" color="primary"> Learn More</Button> */}
                  </Grid>
                </Grid>
              </div>
            </Container>
+           </Paper>
          </div>
+ {
+
  
-  
- 
-   {  results?  
+    results?  
+   
 
       <>
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Domain</TableCell>
-            <TableCell align="right">Ping</TableCell>
-            <TableCell align="right">Hostname&nbsp;(g)</TableCell>
-            <TableCell align="right">EU&nbsp;(g)</TableCell>
-            <TableCell align="right">Country&nbsp;(g)</TableCell>
-            <TableCell align="right">Organization&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {results.map((result) =>(
-               result.name?
-               <TableRow key={result.ping}>
-                 <TableCell component="th" scope="row">
-                   {result.domain}
-                 </TableCell>
-                 <TableCell align="right">{result.name}</TableCell>
-                 <TableCell align="right">{result.domain}</TableCell>
-                 <TableCell align="right">{result.Secure}</TableCell>
-                 <TableCell align="right">{result.HttpOnly}</TableCell>
-                 <TableCell align="right">{result.path}</TableCell>
-               </TableRow>
-               :
-               
-          result.domain?
-            <TableRow key={result.ping}>
-              <TableCell component="th" scope="row">
-                {result.domain}
-              </TableCell>
-              <TableCell align="right">{result.ping}</TableCell>
-              <TableCell align="right">{result.hostname}</TableCell>
-              <TableCell align="right">{result.eu}</TableCell>
-              <TableCell align="right">{result.country}</TableCell>
-              <TableCell align="right">{result.organization}</TableCell>
-            </TableRow>
-            :
-            <></>
-       
+       <div className={classes.container}>
+       <Typography variant="h5" gutterBottom>Cookies:</Typography>
+      <TableCookies results={results}/>
+      <Typography variant="h5" gutterBottom>Domains:</Typography>
+      <TableDomain results={results}/>
+      <Typography variant="h5" gutterBottom>Storages:</Typography>
+      <TableStorages results={results}/>
+      </div>
+              </>
+  
       
-          ))} 
-        </TableBody>
-      </Table>
-    </TableContainer>
+         /* ЕСЛИ НЕТ РЕЗУЛЬТАТОВ ЛОАДИНГ */
+         : 
+         <></>
+         }
+        
 
-
-         {/* <Container className={classes.cardGrid} maxWidth="md">
-           <Grid container spacing={4}>
-             {results.map((result) =>(
-               <Grid item   xs={12} sm={6} md={4}>
-               
-                 <Card>
-                   <CardMedia className={classes.cardMedia}
-                
-                   title = {result.domain}
-                   
-                   />
-                   <CardContent className={classes.cardContent}>
-                  
-                       <Typography variant="h5" gutterBottom>{result.domain}</Typography>
-                       <Typography gutterBottom variant="h6">{result.hostname}</Typography>
-                       <Typography gutterBottom variant="h6">{result.organization}</Typography>
-                       <Typography align="right">Дата публикации: {result.country}</Typography>
-                     </CardContent>
-                   <CardActions>
-                     <Button size="small" color="primary">
-                       View
-                       </Button>
-                       <Button size="small" color="primary">
-                      Edit
-                       </Button>
-                       <LayerIcon/>
-                       <PlayCircleFilledIcon/>
-                     </CardActions>
-                 </Card>
-                 </Grid>
-            ))} 
- 
-             </Grid>
- 
-         </Container> */}
-         
-         </>
-         :
-         <> 
-          <Container className={classes.cardGrid} maxWidth="md">
-           <Grid container spacing={4}>
-           <Segment>
-         
    
-         <Image src='/images/wireframe/short-paragraph.png' />
-       </Segment>
-       </Grid>
-       </Container>
-       </>
-             }
              <Dimmer active={loading} inverted>
            <Loader>Loading</Loader>
          </Dimmer>
+         
        </main>
        </>
- 
- 
  
      )
  

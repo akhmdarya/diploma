@@ -14,3 +14,16 @@ export const checkURL = (url) =>{
 }
 )
 }
+export const dateTime = (expires) => {
+
+
+
+    const milliseconds = expires * 1000 // 1575909015000
+    
+    const dateObject = new Date(milliseconds)
+    
+    const humanDateFormat = dateObject.toLocaleString() 
+
+    return humanDateFormat;
+    
+    }
