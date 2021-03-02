@@ -14,7 +14,16 @@
 
 .input {
     padding: 1rem 1.5rem;
-    border: 1px solid #737373;
+  
     margin-bottom: 1rem;
     font-size: 16px;
+    border-color: cornflowerblue;
+    border-radius: 5px;
+   
+    outline: 0;
+    font-size: 1.3rem;
+   color:white;
+    padding: 7px 7px;
+    background:white;
+    transition: border-color 0.2s;
 }

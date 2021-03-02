@@ -26,7 +26,7 @@ import SendIcon from '@material-ui/icons/Send';
         },
         form__field: {
           
-          // width: "100%",
+          borderColor: "cornflowerblue",
           borderRadius: "5px",
           borderBottom: "2px solid $gray",
           outline: "0",
@@ -47,34 +47,7 @@ import SendIcon from '@material-ui/icons/Send';
         
         form__label :{
           fontWeight: "700"
-          // position: absolute;
-       
-        //   display: block;
-        //   transition: 0.2s;
-        //   font-size: 1rem;
-        //   color: $gray;
-        // }
-        
-        // .form__field:focus {
-        //   ~ .form__label {
-        //     position: absolute;
-        //     top: 0;
-        //     display: block;
-        //     transition: 0.2s;
-        //     font-size: 1rem;
-        //     color: $primary;
-        //     font-weight:700;    
-        //   }
-        //   padding-bottom: 6px;  
-        //   font-weight: 700;
-        //   border-width: 3px;
-        //   border-image: linear-gradient(to right, $primary,$secondary);
-        //   border-image-slice: 1;
-        // }
-        // /* reset input */
-        // .form__field{
-        //   &:required,&:invalid { box-shadow:none; }
-        // }
+      
     }
   }
   

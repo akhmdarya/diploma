@@ -7,6 +7,10 @@ import ResultPage from './Components/pages/ResultPage'
 // import ResultPage from './Components/pages/login/LoginPage'
 // import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Footer from './Components/footer/Footer.jsx'
+import FlagInfo from './Components/flags/FlagInfo'
+import LoginPage from './Components/pages/login/LoginPage.tsx'
+
 
 
 function App() {
@@ -15,20 +19,29 @@ function App() {
   return (
     <div className="App">
     
-      <Header/>
+     
 
      
      <BrowserRouter>
-            
-      <Switch>
-              
-          <Route path="/result/:url" component={ResultPage} />
-          {/* <Route path="/login" component={LoginPage} />
-         */}
- <SimpleContainer/>
+          <Header/>   
          
+      <Switch> 
+       
+      <Route exact path="/"  component={SimpleContainer}/>
+          <Route exact path="/result/:url" component={ResultPage} />
+        
+          <Route path="/login" component={LoginPage} />
+          <Route path="/cookies/:flagName" component={FlagInfo} />
+        
+ {/* <SimpleContainer/> */}
+
+
               </Switch>
+         <Footer/>      
   </BrowserRouter>
+
+ 
+ 
      
     </div>
   );

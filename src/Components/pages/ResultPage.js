@@ -1,29 +1,18 @@
 
 
  import React, { useEffect, useState } from 'react';
- import CircularProgress from '@material-ui/core/CircularProgress';
- import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+ import { Dimmer, Loader} from 'semantic-ui-react'
  import 'semantic-ui-css/semantic.min.css'
- import {checkURL,dateTime} from '../utils'
-
-//  import { getCheckResult } from '../../shared/api';
-//  import { Article } from '../shared/types';
-//  import { getArticle } from '../../shared/api';
-import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, makeStyles, Typography} from '@material-ui/core';
-
+ import {checkURL} from '../utils'
+ import Wallpaper from '../Wallpaper'
+import { makeStyles, Typography} from '@material-ui/core';
  import TableCookies from '../pages/Tables/TableCookies';
  import TableDomain from '../pages/Tables/TableDomain';
  import TableStorages from '../pages/Tables/TableStorages';
- import paper from "../../assets/images/paper1.png";
  import { useParams } from 'react-router-dom';
  import {getCheckResult} from '../../shared/api'
- import Table from '@material-ui/core/Table';
- import TableBody from '@material-ui/core/TableBody';
- import TableCell from '@material-ui/core/TableCell';
- import TableContainer from '@material-ui/core/TableContainer';
- import TableHead from '@material-ui/core/TableHead';
- import TableRow from '@material-ui/core/TableRow';
- import Paper from '@material-ui/core/Paper';
+
+
  
  const useStyles = makeStyles((theme) => ({
      app : {
@@ -31,6 +20,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
        flexWrap: "wrap"
      },
      container: {
+      marginTop: '20px',
        flexWrap: "wrap",
        marginBottom:'20px'
      },
@@ -104,6 +94,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
  const ResultPage  = ()=>{
  
   const {url} = useParams();
+  console.log(url+"!!!!!!!!!!!!!!!!")
   const [loading,setLoading]=useState(true)
   
   const [results, setResults] = useState([]);
@@ -143,25 +134,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, mak
          <>
          <main>
       
-         <div className={classes.container}>
-         <Paper className={classes.mainFeaturesPost}
-        style={{backgroundImage:`url(${paper})` }}>
-           <Container maxWidth="sm">
-             {/* <Typography variant="h5" align="center" color="textPrimary" gutterBottom>GDPR</Typography> */}
-             <Typography variant="h5" align="center" className={classes.text} color="textSecondary" gutterBottom>GDPR - new data processing rules in Europe for the international IT market.</Typography>
-           <div >
-             <Grid container spacing={5} justify="center">
-               <Grid item>
-                 {/* <Button variant="contained" color="primary"> Start Now</Button> */}
-                 </Grid>
-                 <Grid item>
-                 {/* <Button variant="outlined" color="primary"> Learn More</Button> */}
-                 </Grid>
-               </Grid>
-             </div>
-           </Container>
-           </Paper>
-         </div>
+        <Wallpaper/>
  {
 
  

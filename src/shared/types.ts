@@ -10,9 +10,9 @@ export interface Info {
     secure: boolean;
     expires: number;
     priority: string;
-    type: string;
-    key: string;
-    editors_choice: boolean;
+    sameSite: string;
+    flag: [];
+    flagCookies: string;
     author_id: number;
     category_id: number;
     type_id: number;

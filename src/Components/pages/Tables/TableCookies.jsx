@@ -105,7 +105,9 @@ const TableCookies  = (props)=>{
             <TableCell align="right">Secure</TableCell>
             <TableCell align="right">HttpOnly</TableCell>
             <TableCell align="right">priority</TableCell>
+            <TableCell align="right">sameSite</TableCell>
             <TableCell align="right">expires</TableCell>
+            <TableCell align="right">flagCookies</TableCell>
             <TableCell align="right">path</TableCell>
           </TableRow>
         </TableHead>
@@ -123,12 +125,16 @@ const TableCookies  = (props)=>{
                  <TableCell align="right">{String(result.secure)}</TableCell>
                  <TableCell align="right">{String(result.httpOnly)}</TableCell>
                  <TableCell align="right">{result.priority}</TableCell>
+                 <TableCell align="right">{result.sameSite}</TableCell>
                  <TableCell align="right">{dateTime(result.expires)}</TableCell>
+                 <TableCell align="right">{result.flagCookies}</TableCell>
                  <TableCell align="right">{result.path}</TableCell>
                </TableRow>
                :
+               
                <></>
         ))}
+        
                </TableBody>
                </Table>
                </TableContainer>

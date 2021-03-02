@@ -1,27 +1,31 @@
 var express = require("express");
+var evilscan = require('evilscan');
+var portscanner = require('portscanner');
+
 var cors = require('cors');
+const isPortReachable = require('is-port-reachable');
 var app = express();
 app.listen(4400, () => {
- console.log("Server running on port 4400");
+  console.log("Server running on port 4400");
 });
 app.use(cors())
 // var corsOptions = {
-  
+
 //     "origin": "*",
 //     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
 //     "preflightContinue": false,
 //     "optionsSuccessStatus": 204
-  
+
 // }
 
 // app.use(cors(corsOptions));
 
-app.get("/parse",async (req, res, next) => {
+app.get("/parse", async (req, res, next) => {
   const queryObject = req.query.url;
-  const  kek = await checker(queryObject);
-  console.log(kek); 
-   res.send(kek);
- });
+  const kek = await checker(queryObject);
+  console.log(kek);
+  res.send(kek);
+});
 
 
 
@@ -32,6 +36,7 @@ const util = require('util');
 const qs = require('qs');
 const dns = require('dns');
 const fetch = require('node-fetch');
+const { getParsedCommandLineOfConfigFile } = require("typescript");
 
 const getBrowserData = async (url, timeout) => {
   const browser = await puppeteer.launch();
@@ -50,6 +55,12 @@ const getBrowserData = async (url, timeout) => {
   data.cookies = await page._client.send('Network.getAllCookies');
 
   data.localStorage = await page.evaluate(() => Object.assign({}, window.localStorage));
+  // const reacheable=await 
+  // portscanner.checkPortStatus(22, url).then(status => {
+  //  const portStatus=status;
+  //    data.ports.push(portStatus);
+  // });
+
 
   data.sessionStorage = await page.evaluate(() => Object.assign({}, window.sessionStorage));
 
@@ -110,7 +121,10 @@ const getFlags = (entries) => {
   const domains = sortUnique(entries.map(e => new URL(e.request.url).host));
 
   // initialize flags
-  const flags = domains.reduce((flags, domain) => { flags[domain] = {}; return flags; }, {});
+  const flags = domains.reduce((flags, domain) => {
+    flags[domain] = {};
+    return flags;
+  }, {});
 
   // set no_ssl 
   const noSslEntries = entries.filter(e => new URL(e.request.url).protocol == 'http:');
@@ -125,21 +139,24 @@ const getFlags = (entries) => {
   });
   for (e of gaEntries) {
     const u = new URL(e.request.url);
-    const get = e.request.queryString.reduce((get, pair) => { get[pair.name] = pair.value; return get; }, {});
+    const get = e.request.queryString.reduce((get, pair) => {
+      get[pair.name] = pair.value;
+      return get;
+    }, {});
     const post = e.request.postData ? qs.parse(e.request.postData.text) : {};
     const aip = 'aip' in get || 'aip' in post;
-    flags[u.host][aip ? 'ga_aip' : 'ga_no_aip'] = true;
+    flags[u.host][aip ? 'google_anonymip' : 'google_no_anonymip'] = true;
   }
 
   // set domain flags
   const domainFlags = {
     'fonts.gstatic.com': 'g_fonts',
     'fonts.googleapis.com': 'g_fonts',
-    'stats.g.doubleclick.net': 'g_dc_ads',
-    'googleads.g.doubleclick.net ': 'g_dc_ads',
+    'stats.g.doubleclick.net': 'Google DoubleClick Ads',
+    'googleads.g.doubleclick.net ': 'Google DoubleClick Ads',
     'px.ads.linkedin.com': 'li_ads',
-    'connect.facebook.net': 'fb_connect',
-    'ping.chartbeat.net': 'chartbeat',
+    'connect.facebook.net': 'Facebook Connect',
+    'ping.chartbeat.net': 'Chartbeat Analytics',
     'bam.nr-data.net': 'nr_in_us'
   };
   for (const domain of Object.keys(flags)) {
@@ -164,13 +181,16 @@ const getDnsData = async (flags) => {
   const rlookups = await Promise.all(domains.map((domain) => rlookup(ips[domain]).catch(_ => [''])));
   const reverses = domains.reduce((acc, domain, i) => (acc[domain] = rlookups[i][0], acc), {});
 
+
   const ping = util.promisify(tcpp.ping);
   const times = {};
   for (var i = 0; i < 3; i++) {
     for (const domain of domains) {
       await new Promise(r => setTimeout(r, 100));
       const time = await ping({
-        address: ips[domain], port: flags[domain]['no_ssl'] ? 80 : 443, attempts: 1
+        address: ips[domain],
+        port: flags[domain]['no_ssl'] ? 80 : 443,
+        attempts: 1
       });
       if (domain in times) {
         times[domain] = Math.min(times[domain], time.min);
@@ -180,7 +200,11 @@ const getDnsData = async (flags) => {
     }
   }
 
-  return { ips: ips, hostnames: reverses, pings: times };
+  return {
+    ips: ips,
+    hostnames: reverses,
+    pings: times
+  };
 };
 
 const getLocationData = async (ips) => {
@@ -197,14 +221,67 @@ const getLocationData = async (ips) => {
 
 
 const getData = async (url) => {
+
+  // try{
   browserData = await getBrowserData(url, 2000);
+
+
   const entries = browserData.har.log.entries.filter(e => e.request.url);
   const flags = getFlags(entries);
   const dnsData = await getDnsData(flags);
   const locations = await getLocationData(dnsData.ips);
-  const data = { domains: [], cookies: [], sessionStorage: [], localStorage: [] }
+  const data = {
+    domains: [],
+    cookies: [],
+    sessionStorage: [],
+    localStorage: [],
+    // ports:[]
+  }
+
+// const res22 = await isPortReachable(22, {
+//       host: url
+//     })
+//      //должен быть доступ по авторизации== закрыт
+
+// // const res2 =await portscanner.checkPortStatus(22, url, function(error, status) {
+// //         // Status is 'open' if currently in use or 'closed' if available
+// //         return status;
+// //       })
+//  data.ports.push({
+//           isreachable:res22, portName:' SSH '
+//         });
+
+//   const res443 = await isPortReachable(443, {
+//           host: url
+// })
+// let res2 =await portscanner.checkPortStatus(443, url, function(error, status) {
+//   res2=status;
+// console.log(status+"443!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
+//         // Status is 'open' if currently in use or 'closed' if available
+//         return status;
+//       })
+
+// data.ports.push({
+//   isreachable:res443, portName:' HTTPS  '
+// });
+
+// const res80 = await isPortReachable(80, {
+//   host: url
+// })
+// data.ports.push({
+// isreachable:res80, portName:' HTTP  '
+// });
+
+
+
+
+
+
+
   for (domain of Object.keys(flags)) {
-    const result = { domain: domain }
+    const result = {
+      domain: domain
+    }
     result.flag = Object.keys(flags[domain]);
     result.ping = Math.round(dnsData.pings[domain]);
     result.hostname = dnsData.hostnames[domain];
@@ -214,40 +291,105 @@ const getData = async (url) => {
     data.domains.push(result);
   }
   for (cookie of browserData.cookies.cookies) {
-    const fields = ['name', 'value', 'domain', 'path', 'expires', 'size', 'httpOnly', 'secure', 'session', 'priority', 'sameSite']
-    for (const field of fields) {
-      if (!(field in cookie)) {
-        cookie[field] = null;
-      }
+    const fields = ['name', 'value', 'domain', 'path', 'expires', 'size', 'httpOnly', 'secure', 'session', 'priority', 'sameSite','flagCookies']
+
+
+
+
+
+    const cookieFlags = ['_gid', '_ga','kek'];
+    for (const cookieFlag of cookieFlags) {
+      if ((cookieFlag ===cookie.name)) {
+        cookie.flagCookies=cookieFlag ;
+        
+        console.log(cookieFlag+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5")
+        console.log(cookie.flagCookies+"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+ 
+       }
+   
     }
+
     data.cookies.push(cookie);
   }
+
+
   for (key of Object.keys(browserData.sessionStorage)) {
-    data.sessionStorage.push({ key: key, value: browserData.sessionStorage[key],type: "session"});
+    data.sessionStorage.push({
+      key: key,
+      value: browserData.sessionStorage[key],
+      type: "session"
+    });
   }
   for (key of Object.keys(browserData.localStorage)) {
-    data.localStorage.push({ key: key, value: browserData.localStorage[key],type: "local" });
+    data.localStorage.push({
+      key: key,
+      value: browserData.localStorage[key],
+      type: "local"
+    });
   }
   return data;
+
 };
 
-    async function checker(url1) {
-        let response =[];
-          const arg = url1;
-          const url = arg.startsWith('http') ? arg : 'https://' + arg;
-          const data = await getData(url);
-          for (key of Object.keys(data)) {
-            console.log('==' + key + '==');
-            for (record of data[key]) {
-              response.push(record)
-              /// response+=JSON.stringify(record);
-              // console.log(JSON.stringify(record));
-            }
-          }
-          // console.log(response) ;
-          return response;
-    //   })()
+async function checkPorts(url1){
+  const Evilscan = require('evilscan');
+
+const options = {
+    target:url1,
+    port:'21-23,25,80,110, 143, 443-445,3389',
+    status:'TROU', // Timeout, Refused, Open, Unreachable
+    banner:true
+};
+
+new Evilscan(options, (err, scan) =>{
+
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    scan.on('result', data => {
+        // fired when item is matching options
+        console.log(data);
+    });
+
+    scan.on('error', err => {
+        throw new Error(data.toString());
+    });
+
+    scan.on('done', () => {
+        // finished !
+    });
+
+    scan.run();
+});
+
+}
 
 
 
- }
+async function checker(url1) {
+  let response = [];
+  const arg = url1;
+  const url = arg.startsWith('http') ? arg : 'https://' + arg;
+
+   
+ 
+  try {
+
+    const data = await getData(url);
+    for (key of Object.keys(data)) {
+      console.log('==' + key + '==');
+      for (record of data[key]) {
+        response.push(record)
+
+      }
+    }
+
+
+  } catch (e) {
+    console.log(e);
+  }
+
+  return response;
+}

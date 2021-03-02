@@ -1,11 +1,17 @@
+
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+
+import Container from '@material-ui/core/Container';
 // import Profile from '../../components/profile/Profile';
 // import { getProfile, login } from '../../shared/api';
 
 // import AppContext, { ActionTypes } from '../../shared/app.context';
 // import { selectLogin } from '../../shared/redux/login/login.selectors';
 import styles from './LoginPage.module.scss';
+import { Button } from '@material-ui/core';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { fetchLogin, fetchLoginSuccess } from '../../shared/redux/login/login.actions';
 
@@ -45,12 +51,33 @@ const LoginPage: React.FC = () => {
 
 
 }
+const styless= {
+    main: {
+      paddingTop: '100px',
+        backgroundColor: '#cfe8fc', minHeight: '85vh',
+        position: "relative",
+    },
+    container:{
+      paddingTop: '100px',
+    }
+}
 
     
     // var currentUser = JSON.parse(localStorage.getItem('profile') || '{}');
     // console.log(currentUser)
 
     return (
+        <React.Fragment>
+        <CssBaseline />
+        <Container component="div" maxWidth="lg">
+  
+        <div  >  
+
+
+        <Typography style={{ paddingTop: '100px',
+        backgroundColor: '#cfe8fc', minHeight: '85vh',
+        position: "relative",}} component="div"      >
+        
         <div className={styles.wrapper}>
             <h2>Log in</h2>
             <div className={styles.controls}>
@@ -69,8 +96,18 @@ const LoginPage: React.FC = () => {
                     onChange={(e) => {setForm(state => ({...state, password: e.target.value}))}} 
                     placeholder="Enter your password" />
             </div>
-            <button title="Login"  onClick={handlelogin}>Login</button>
+            <Button color= "primary" variant="contained" onClick={handlelogin}>Login</Button>
         </div>
+</Typography>
+ {/* <Footer/> */}
+      
+      </div>
+     
+      
+      </Container>
+      </React.Fragment>
+
+       
     )
 }
 
