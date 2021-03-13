@@ -1,5 +1,5 @@
 var express = require("express");
-var evilscan = require('evilscan');
+
 var portscanner = require('portscanner');
 
 var cors = require('cors');
@@ -152,11 +152,11 @@ const getFlags = (entries) => {
   const domainFlags = {
     'fonts.gstatic.com': 'g_fonts',
     'fonts.googleapis.com': 'g_fonts',
-    'stats.g.doubleclick.net': 'Google DoubleClick Ads',
+    'stats.g.doubleclick.net': 'Google_DoubleClick_Ads',
     'googleads.g.doubleclick.net ': 'Google DoubleClick Ads',
     'px.ads.linkedin.com': 'li_ads',
-    'connect.facebook.net': 'Facebook Connect',
-    'ping.chartbeat.net': 'Chartbeat Analytics',
+    'connect.facebook.net': 'Facebook_Connect',
+    'ping.chartbeat.net': 'Chartbeat_Analytics',
     'bam.nr-data.net': 'nr_in_us'
   };
   for (const domain of Object.keys(flags)) {
@@ -301,9 +301,6 @@ const getData = async (url) => {
     for (const cookieFlag of cookieFlags) {
       if ((cookieFlag ===cookie.name)) {
         cookie.flagCookies=cookieFlag ;
-        
-        console.log(cookieFlag+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5")
-        console.log(cookie.flagCookies+"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
  
        }
    
@@ -331,12 +328,13 @@ const getData = async (url) => {
 
 };
 
-async function checkPorts(url1){
+ function checkPorts(url1){
+  let response = [];
   const Evilscan = require('evilscan');
 
 const options = {
     target:url1,
-    port:'21-23,25,80,110, 143, 443-445,3389',
+    port:'21-23,25,80,110, 143, 443,445,3389',
     status:'TROU', // Timeout, Refused, Open, Unreachable
     banner:true
 };
@@ -349,8 +347,14 @@ new Evilscan(options, (err, scan) =>{
     }
 
     scan.on('result', data => {
-        // fired when item is matching options
-        console.log(data);
+     
+
+
+            response.push(data);
+           response.sort((a, b) => a.port > b.port ? 1 : -1);
+    
+          
+        
     });
 
     scan.on('error', err => {
@@ -363,6 +367,7 @@ new Evilscan(options, (err, scan) =>{
 
     scan.run();
 });
+return response;
 
 }
 
@@ -370,6 +375,8 @@ new Evilscan(options, (err, scan) =>{
 
 async function checker(url1) {
   let response = [];
+ response= checkPorts(url1);
+
   const arg = url1;
   const url = arg.startsWith('http') ? arg : 'https://' + arg;
 
@@ -392,4 +399,5 @@ async function checker(url1) {
   }
 
   return response;
-}
+ 
+} 

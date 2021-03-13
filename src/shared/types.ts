@@ -13,10 +13,10 @@ export interface Info {
     sameSite: string;
     flag: [];
     flagCookies: string;
-    author_id: number;
-    category_id: number;
-    type_id: number;
-    is_news: boolean;
+    ip: string;
+    port: number;
+    banner: string;
+    status: string;
     user_id: number;
     authors_id: number;
     is_leader: boolean;
