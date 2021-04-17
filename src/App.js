@@ -10,22 +10,41 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Footer from './Components/footer/Footer.jsx'
 import FlagInfo from './Components/flags/FlagInfo'
 import LoginPage from './Components/pages/login/LoginPage.tsx'
-
+import CookieConsent from "react-cookie-consent";
+import CookieBanner from 'react-cookie-banner';
 
 
 function App() {
+
+  const styles = {
+    banner: {
+       backgroundColor:"#3f51b5"
+    },
+  }
  
 
   return (
     <div className="App">
     
-     
+
+ 
+ 
 
      
      <BrowserRouter>
-          <Header/>   
-         
-      <Switch> 
+          <Header/> 
+          <CookieConsent debug={true} 
+style={styles.banner}
+
+  enableDeclineButton
+  onDecline={() => {
+    alert("You can leave the web site");
+  }}
+>  This website uses cookies.</CookieConsent>
+        
+  
+ 
+      <Switch>  
        
       <Route exact path="/"  component={SimpleContainer}/>
           <Route exact path="/result/:url" component={ResultPage} />

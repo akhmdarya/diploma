@@ -22,6 +22,8 @@
     "puppeteer-har": "^1.1.2",
     "qs": "^6.9.6",
     "react": "^17.0.1",
+    "react-cookie-banner": "^4.1.0",
+    "react-cookie-consent": "^6.2.3",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",

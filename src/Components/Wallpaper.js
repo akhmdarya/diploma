@@ -71,14 +71,17 @@ const useStyles = makeStyles((theme) => ({
     mainFeaturesPost:{
   
      padding: theme.spacing(10),
-     height: "200px"
+     height: "220px"
     },
     cardGrid:{
       marginTop:theme.spacing(4),
       paddingBottom:"56.25%",
     },
     text:{
-      color:"white"
+      color:"white",
+      [theme.breakpoints.down('sm')]: {
+       fontSize:'14px',
+      },
     }
     
     

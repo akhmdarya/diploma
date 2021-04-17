@@ -74,7 +74,7 @@ const styless= {
         <div  >  
 
 
-        <Typography style={{ paddingTop: '100px',
+        <Typography style={{ 
         backgroundColor: '#cfe8fc', minHeight: '85vh',
         position: "relative",}} component="div"      >
         

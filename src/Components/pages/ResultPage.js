@@ -10,7 +10,7 @@ import { makeStyles, Typography} from '@material-ui/core';
  import TableDomain from '../pages/Tables/TableDomain';
  import TablePorts from '../pages/Tables/TablePorts';
  import TableStorages from '../pages/Tables/TableStorages';
- import { useParams } from 'react-router-dom';
+ import { useParams , useHistory} from 'react-router-dom';
  import {getCheckResult} from '../../shared/api'
 
 
@@ -93,33 +93,52 @@ import { makeStyles, Typography} from '@material-ui/core';
 
    
  const ResultPage  = ()=>{
+  const history= useHistory();
  
   const {url} = useParams();
-  console.log(url+"!!!!!!!!!!!!!!!!")
+  // console.log(url+"!!!!!!!!!!!!!!!!")
   const [loading,setLoading]=useState(true)
   
   const [results, setResults] = useState([]);
 
 
   useEffect(() => {
+
     const fetchData = async () => {
       const url1 = url.replace(/^https?:\/\//,'');
-      checkURL(url1);
+
+      if(checkURL(url1)!='Valid URL'){
+        history.push('/');
+        alert("Not Valid URL");
+       
+      }
+
+      else if(checkURL(url1)==='Valid URL'){
+      
     //  const res=  getCheckResult(url);
       setLoading(true);
       await  getCheckResult(url1)
       
         .then((resp ) => {
-          console.log(resp)
+          // console.log(resp.data+"&&&&&&&&&&&&&&")
+          if(resp.data==''){
+            alert("Couldn't resolve" + url1);
+            history.push('/');
+          }
           setResults(resp.data);
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.data+"Error");
+          
           setLoading(false);
         });
         
     }
+    else{
+      history.push('/')
+    }
+  }
     fetchData();
      
      

@@ -9,16 +9,8 @@ app.listen(4400, () => {
   console.log("Server running on port 4400");
 });
 app.use(cors())
-// var corsOptions = {
 
-//     "origin": "*",
-//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     "preflightContinue": false,
-//     "optionsSuccessStatus": 204
 
-// }
-
-// app.use(cors(corsOptions));
 
 app.get("/parse", async (req, res, next) => {
   const queryObject = req.query.url;
@@ -26,9 +18,6 @@ app.get("/parse", async (req, res, next) => {
   console.log(kek);
   res.send(kek);
 });
-
-
-
 const puppeteer = require('puppeteer');
 const PuppeteerHar = require('puppeteer-har');
 const tcpp = require('tcp-ping');
@@ -157,7 +146,12 @@ const getFlags = (entries) => {
     'px.ads.linkedin.com': 'li_ads',
     'connect.facebook.net': 'Facebook_Connect',
     'ping.chartbeat.net': 'Chartbeat_Analytics',
-    'bam.nr-data.net': 'nr_in_us'
+    'bam.nr-data.net': 'nr_in_us',
+    
+    // '_ga': '_ga',
+    // '_ga': '_ga',
+    
+
   };
   for (const domain of Object.keys(flags)) {
     if (domain in domainFlags) {
@@ -297,7 +291,12 @@ const getData = async (url) => {
 
 
 
-    const cookieFlags = ['_gid', '_ga','kek'];
+    const cookieFlags = ['_gid', '_ga','kek','VISITOR_INFO1_LIVE*','ASP.NET_SessionId', '__zjc*','language','CookieControl',
+    '_ym_isad','_ym_uid','_ym_visorc_NNNNN'
+  
+  
+  
+  ];
     for (const cookieFlag of cookieFlags) {
       if ((cookieFlag ===cookie.name)) {
         cookie.flagCookies=cookieFlag ;
@@ -358,7 +357,9 @@ new Evilscan(options, (err, scan) =>{
     });
 
     scan.on('error', err => {
+      alert(err);
         throw new Error(data.toString());
+     
     });
 
     scan.on('done', () => {
@@ -395,9 +396,12 @@ async function checker(url1) {
 
 
   } catch (e) {
-    console.log(e);
+    alert('Could not resolve' + url1);
+   
+    // console.log(e+"!!!!!!!!!!!!!!!!!!!11");
+   
   }
-
-  return response;
+return response;
+  
  
 } 

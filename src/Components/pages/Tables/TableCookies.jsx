@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Link, withRouter } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import {checkURL,dateTime} from '../../utils'
 import { makeStyles } from '@material-ui/core/styles';
@@ -127,7 +128,8 @@ const TableCookies  = (props)=>{
                  <TableCell align="right">{result.priority}</TableCell>
                  <TableCell align="right">{result.sameSite}</TableCell>
                  <TableCell align="right">{dateTime(result.expires)}</TableCell>
-                 <TableCell align="right">{result.flagCookies}</TableCell>
+                 {/* <TableCell align="right">{result.flagCookies}</TableCell> */}
+                 <Link to={`/cookies/${result.flagCookies}`}   target="_blank"> {result.flagCookies}</Link>
                  <TableCell align="right">{result.path}</TableCell>
                </TableRow>
                :

@@ -3,8 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { checkURL } from './utils';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
+
 // import { checker} from "../Components/Scanner";
 
 // const puppeteer = require('puppeteer');
@@ -41,17 +42,26 @@ import SendIcon from '@material-ui/icons/Send';
         link:{
           color: 'white',
           fontWeight:"500",
-          
-
         },
         
         form__label :{
           fontWeight: "700"
-      
+    },
+    // error:{
+    //   color:'rgb(220, 0, 78)',
+    // },
+    message:{
+      color:"#9c27b0",
+      fontSize:'14px',
+      fontWeight:'600'
     }
+    
+  
+    
   }
   
     const TextFieldComponent = () => {
+      const history= useHistory();
       const [fields, setFields] = useState({
         
         url: '',
@@ -72,10 +82,17 @@ import SendIcon from '@material-ui/icons/Send';
   useEffect(() => {
     clearMessages();
     seturl1(fields.url.replace(/(^\w+:|^)\/\//, ''));
-    checkURL(fields.url)
 
-    .then(res=> setMessage(res))
-    .catch(element=> setError(element))
+
+    if(checkURL(fields.url)==='Valid URL'){
+      setMessage('Valid URL')
+    }
+
+    if(checkURL(fields.url)==='incorrect URL!'){
+       setError("Incorrect URL");
+       history.push('/');
+    }
+   
   
 }, [fields])
   const fieldChange = (fieldName, value) => {
@@ -112,13 +129,21 @@ import SendIcon from '@material-ui/icons/Send';
        style={styles.butt}
        onClick={onSubmit}
         endIcon={<SendIcon />}
-      ><Link  style={styles.link} to= {`/result/${url1}`}> 
+      >
+        {fields.url && (checkURL(fields.url)==='Valid URL')?
+         <Link  style={styles.link} to= {`/result/${url1}`}> 
         Check Web-Site!
         
-     </Link>  </Button>
+     </Link>  
+        :
+        <div style={styles.link}>  Check Web-Site!</div>
+        }
+       
+     
+     </Button>
       <div>
-      {error && <>{error}</>}
-      {message && <>{message}</>}
+      {error && <div style={styles.error}>{error}</div>}
+      {message && <div style={styles.message}>{message}</div>}
       </div>
      
       
