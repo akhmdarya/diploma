@@ -10,6 +10,7 @@ import { makeStyles, Typography} from '@material-ui/core';
  import TableDomain from '../pages/Tables/TableDomain';
  import TablePorts from '../pages/Tables/TablePorts';
  import TableStorages from '../pages/Tables/TableStorages';
+//  import Report from '../pages/Tables/results/Report';
  import { useParams , useHistory} from 'react-router-dom';
  import {getCheckResult} from '../../shared/api'
 
@@ -163,6 +164,8 @@ import { makeStyles, Typography} from '@material-ui/core';
 
       <>
        <div className={classes.container}>
+       <Typography variant="h5" gutterBottom>REPORT</Typography>
+       {/* <Report results={results}/> */}
        <Typography variant="h5" gutterBottom>Ports:</Typography>
       <TablePorts results={results}/>
        <Typography variant="h5" gutterBottom>Cookies:</Typography>
@@ -193,3 +196,8 @@ import { makeStyles, Typography} from '@material-ui/core';
  
  }
  export default ResultPage;
+
+
+
+
+

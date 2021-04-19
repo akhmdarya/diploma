@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import React, {  } from 'react';
 import 'semantic-ui-css/semantic.min.css'
-import {checkURL,dateTime} from '../../utils'
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -44,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     paddingTop:"150px",
   },tableContainer:{
-      justifyItems:"center",
-      alignItems:"center",
-      marginBottom:"30px"
+      // justifyItems:"center",
+      // alignItems:"center",
+      // marginBottom:"30px",
+      // maxWidth:'700px'
   },
   mainFeaturesPost :{
   position: "relative",
@@ -84,7 +82,12 @@ const useStyles = makeStyles((theme) => ({
   mainn:{
     justifyItems:"center",
     alignItems:"center"
-  }
+  },
+  tableMain:{
+      display:'flex',
+      justifyContent:'center',
+      paddingTop:'50px'
+  },
   
   
   }))
@@ -95,12 +98,14 @@ const TableStorages  = (props)=>{
         {/* <main className={classes.mainn}>
         <table> */}
         {props.results?
+
+
        <TableContainer className={classes.tableContainer} component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow className={classes.mainn}>
             <TableCell>Name of Storage</TableCell>
-            <TableCell align="right">Entry</TableCell>
+            <TableCell align="center">Entry</TableCell>
            
           </TableRow>
         </TableHead>
@@ -112,7 +117,7 @@ const TableStorages  = (props)=>{
                <TableCell component="th" scope="row">
                  {result.type}
                </TableCell>
-               <TableCell align="right">{result.key}</TableCell>
+               <TableCell align="center">{result.key}</TableCell>
               
              </TableRow>
                :
@@ -121,6 +126,7 @@ const TableStorages  = (props)=>{
                </TableBody>
                </Table>
                </TableContainer>
+          
             
             : <>No Storages!</>}
                </>

@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
-import { Link, withRouter } from 'react-router-dom';
+import React, {  } from 'react';
+import { Link } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
-import { checkURL, dateTime } from '../../utils'
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,7 +9,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import FlagInfo from '../../flags/FlagInfo';
 const useStyles = makeStyles((theme) => ({
   app: {
     backgroundColor: "rgb(24, 164, 245)",
@@ -102,13 +98,13 @@ const TableCookies = (props) => {
             <TableHead>
               <TableRow className={classes.mainn}>
                 <TableCell>Domain</TableCell>
-                <TableCell align="right">Ping</TableCell>
-                <TableCell align="right">Hostname</TableCell>
-                <TableCell align="right">Flags</TableCell>
+                <TableCell align="center">Ping</TableCell>
+                <TableCell align="center">Hostname</TableCell>
+                <TableCell align="center">Flags</TableCell>
 
-                <TableCell align="right">EU</TableCell>
-                <TableCell align="right">Country</TableCell>
-                <TableCell align="right">organization</TableCell>
+                <TableCell align="center">EU</TableCell>
+                <TableCell align="center">Country</TableCell>
+                <TableCell align="center">organization</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -119,14 +115,14 @@ const TableCookies = (props) => {
                     <TableCell component="th" scope="row">
                       {result.domain}
                     </TableCell>
-                    <TableCell align="right">{result.ping}</TableCell>
-                    <TableCell align="right">{result.hostname}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">{result.ping}</TableCell>
+                    <TableCell align="center">{result.hostname}</TableCell>
+                    <TableCell align="center">
                     <Link to={`/cookies/${result.flag}`}   target="_blank"> {result.flag}</Link>
                       </TableCell>
-                    <TableCell align="right">{result.eu}</TableCell>
-                    <TableCell align="right">{result.country}</TableCell>
-                    <TableCell align="right">{result.organization}</TableCell>
+                    <TableCell align="center">{result.eu}</TableCell>
+                    <TableCell align="center">{result.country}</TableCell>
+                    <TableCell align="center">{result.organization}</TableCell>
                   </TableRow>
                   :
                   <></>

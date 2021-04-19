@@ -9,8 +9,16 @@ app.listen(4400, () => {
   console.log("Server running on port 4400");
 });
 app.use(cors())
+// var corsOptions = {
 
+//     "origin": "*",
+//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     "preflightContinue": false,
+//     "optionsSuccessStatus": 204
 
+// }
+
+// app.use(cors(corsOptions));
 
 app.get("/parse", async (req, res, next) => {
   const queryObject = req.query.url;
@@ -18,12 +26,16 @@ app.get("/parse", async (req, res, next) => {
   console.log(kek);
   res.send(kek);
 });
+
+
+
 const puppeteer = require('puppeteer');
 const PuppeteerHar = require('puppeteer-har');
 const tcpp = require('tcp-ping');
 const util = require('util');
 const qs = require('qs');
 const dns = require('dns');
+
 const fetch = require('node-fetch');
 const { getParsedCommandLineOfConfigFile } = require("typescript");
 
@@ -147,11 +159,7 @@ const getFlags = (entries) => {
     'connect.facebook.net': 'Facebook_Connect',
     'ping.chartbeat.net': 'Chartbeat_Analytics',
     'bam.nr-data.net': 'nr_in_us',
-    
-    // '_ga': '_ga',
-    // '_ga': '_ga',
-    
-
+    '	no_ssl':'	no_ssl'
   };
   for (const domain of Object.keys(flags)) {
     if (domain in domainFlags) {
@@ -292,11 +300,7 @@ const getData = async (url) => {
 
 
     const cookieFlags = ['_gid', '_ga','kek','VISITOR_INFO1_LIVE*','ASP.NET_SessionId', '__zjc*','language','CookieControl',
-    '_ym_isad','_ym_uid','_ym_visorc_NNNNN'
-  
-  
-  
-  ];
+    '_ym_isad','_ym_uid','_ym_visorc_NNNNN'];
     for (const cookieFlag of cookieFlags) {
       if ((cookieFlag ===cookie.name)) {
         cookie.flagCookies=cookieFlag ;
@@ -333,9 +337,11 @@ const getData = async (url) => {
 
 const options = {
     target:url1,
-    port:'21-23,25,80,110, 143, 443,445,3389',
-    status:'TROU', // Timeout, Refused, Open, Unreachable
+    port:'1-443',
+    status:'O', // Timeout, Refused, Open, Unreachable
+    
     banner:true
+    
 };
 
 new Evilscan(options, (err, scan) =>{
@@ -349,17 +355,22 @@ new Evilscan(options, (err, scan) =>{
      
 
 
-            response.push(data);
-           response.sort((a, b) => a.port > b.port ? 1 : -1);
+
+           
+           
+            // if(data.status=='open'){
+              response.push(data);
+            //   console.log(data);
+            // }
+          //  response.sort((a, b) => a.port > b.port ? 1 : -1);
     
           
         
     });
 
     scan.on('error', err => {
-      alert(err);
         throw new Error(data.toString());
-     
+
     });
 
     scan.on('done', () => {
@@ -377,9 +388,17 @@ return response;
 async function checker(url1) {
   let response = [];
  response= checkPorts(url1);
-
+//url1='82.200.154.121';
+if ( /(([0-9]{1,3}[\.]){3}[0-9]{1,3})/.test(url1) ){
+ dns.lookupService(url1, 80,  (err, hostname, service) => {
+  console.log(hostname, service);
+  url1=hostname;
+  console.log(url1+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+  // Prints: localhost ssh
+});
+}
   const arg = url1;
-  const url = arg.startsWith('http') ? arg : 'https://' + arg;
+  const url = arg.startsWith('http') ? arg : 'http://' + arg;
 
    
  
@@ -396,12 +415,9 @@ async function checker(url1) {
 
 
   } catch (e) {
-    alert('Could not resolve' + url1);
-   
-    // console.log(e+"!!!!!!!!!!!!!!!!!!!11");
-   
+    console.log(e);
   }
-return response;
-  
+
+  return response;
  
 } 

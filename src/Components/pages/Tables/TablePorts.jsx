@@ -102,10 +102,10 @@ const TablePorts  = (props)=>{
         <TableHead>
           <TableRow className={classes.mainn}>
             <TableCell>IP</TableCell>
-            <TableCell align="right">Port</TableCell>
-            <TableCell align="right">Banner</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Status</TableCell>
+            <TableCell align="center">Port</TableCell>
+            <TableCell align="center">Banner</TableCell>
+            {/* <TableCell align="right">Name</TableCell> */}
+            <TableCell align="center">Status</TableCell>
           
         
           </TableRow>
@@ -121,11 +121,11 @@ const TablePorts  = (props)=>{
                    {result.ip}
                   {/* {{const date= }} */}
                  </TableCell>
-                 <TableCell align="right">{result.port}</TableCell>
+                 <TableCell align="center">{result.port}</TableCell>
                  
-                 <TableCell align="right">{result.banner}</TableCell>
-                 <TableCell align="right">{Array2[i++]}</TableCell>
-                 <TableCell align="right">{result.status}</TableCell>
+                 <TableCell align="center">{result.banner}</TableCell>
+                 {/* <TableCell align="right">{Array2[i++]}</TableCell> */}
+                 <TableCell align="center">{result.status}</TableCell>
 
                 
                </TableRow>

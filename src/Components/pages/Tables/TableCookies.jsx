@@ -101,15 +101,15 @@ const TableCookies  = (props)=>{
         <TableHead>
           <TableRow className={classes.mainn}>
             <TableCell>Name</TableCell>
-            <TableCell align="right">Domain</TableCell>
-            <TableCell align="right">Hostname</TableCell>
-            <TableCell align="right">Secure</TableCell>
-            <TableCell align="right">HttpOnly</TableCell>
-            <TableCell align="right">priority</TableCell>
-            <TableCell align="right">sameSite</TableCell>
-            <TableCell align="right">expires</TableCell>
-            <TableCell align="right">flagCookies</TableCell>
-            <TableCell align="right">path</TableCell>
+            <TableCell align="center">Domain</TableCell>
+            <TableCell align="center">Hostname</TableCell>
+            <TableCell align="center">Secure</TableCell>
+            <TableCell align="center">HttpOnly</TableCell>
+            <TableCell align="center">priority</TableCell>
+            <TableCell align="center">sameSite</TableCell>
+            <TableCell align="center">expires</TableCell>
+            <TableCell align="center">flagCookies</TableCell>
+            <TableCell align="center">path</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -121,16 +121,16 @@ const TableCookies  = (props)=>{
                    {result.domain}
                   {/* {{const date= }} */}
                  </TableCell>
-                 <TableCell align="right">{result.name}</TableCell>
-                 <TableCell align="right">{result.domain}</TableCell>
-                 <TableCell align="right">{String(result.secure)}</TableCell>
-                 <TableCell align="right">{String(result.httpOnly)}</TableCell>
-                 <TableCell align="right">{result.priority}</TableCell>
-                 <TableCell align="right">{result.sameSite}</TableCell>
-                 <TableCell align="right">{dateTime(result.expires)}</TableCell>
+                 <TableCell align="center">{result.name}</TableCell>
+                 <TableCell align="center">{result.domain}</TableCell>
+                 <TableCell align="center">{String(result.secure)}</TableCell>
+                 <TableCell align="center">{String(result.httpOnly)}</TableCell>
+                 <TableCell align="center">{result.priority}</TableCell>
+                 <TableCell align="center">{result.sameSite}</TableCell>
+                 <TableCell align="center">{dateTime(result.expires)}</TableCell>
                  {/* <TableCell align="right">{result.flagCookies}</TableCell> */}
                  <Link to={`/cookies/${result.flagCookies}`}   target="_blank"> {result.flagCookies}</Link>
-                 <TableCell align="right">{result.path}</TableCell>
+                 <TableCell align="center">{result.path}</TableCell>
                </TableRow>
                :
                

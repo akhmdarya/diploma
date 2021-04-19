@@ -55,7 +55,8 @@ const FlagInfo =(flagName)=>{
         {name:'__zjc*', description:'This cookie is set by a third-party web application firewall from Dyn to help maintain the security and performance of our website. Some traffic may receive a challenge to check if it is genuine and if it is, a cookie is set so the user isn’t challenged again.'},
         {name:'ASP.NET_SessionId', description:'This cookie is essential for the breach notification form – the form that public electronic communications service providers use to notify the ICO of a security breach – to operate. It is set only for those people using the form. This cookie is deleted when you close your browser.'},
         {name:'VISITOR_INFO1_LIVE*', description:'VISITOR_INFO1_LIVE - *expires after eight months'},
-        {name:'_ym_isad',description:'Это сторонние файлы cookie, размещенные Яндексом, которые позволяют нам использовать службу Yandex Metrics.Эти файлы cookie позволяют анонимно отслеживать, как посетители получают доступ и просматривают наш веб-сайт, что позволяет нам оптимизировать и улучшать наш сервис.'}
+        {name:'_ym_isad',description:'Это сторонние файлы cookie, размещенные Яндексом, которые позволяют нам использовать службу Yandex Metrics.Эти файлы cookie позволяют анонимно отслеживать, как посетители получают доступ и просматривают наш веб-сайт, что позволяет нам оптимизировать и улучшать наш сервис.'},
+        {name:'no_ssl',description:"It seems that there are requests done with 'http://' instead of 'https://' (no SSL)."}
        
     ];
 
@@ -73,8 +74,8 @@ const FlagInfo =(flagName)=>{
         <TableHead>
           <TableRow className={classes.mainn}>
  
-            <TableCell align="right">name</TableCell>
-            <TableCell align="right">description</TableCell>
+            <TableCell align="center">name</TableCell>
+            <TableCell align="center">description</TableCell>
         
           
         
@@ -93,9 +94,9 @@ const FlagInfo =(flagName)=>{
       
                <><TableRow key={result.name}>
             
-                <TableCell className={classes.flag} align="right">{flag}</TableCell>
+                <TableCell className={classes.flag} align="center">{flag}</TableCell>
 
-                <TableCell  className={classes.flag} align="right">{result.description}</TableCell>
+                <TableCell  className={classes.flag} align="center">{result.description}</TableCell>
                 
 
 
