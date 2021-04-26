@@ -1,12 +1,13 @@
 import { createStyles, useMediaQuery, Avatar, AppBar, BottomNavigationAction, Button, Container, IconButton, Toolbar, Typography, useTheme, BottomNavigation } from '@material-ui/core';
 import React, { useContext,useState } from 'react';
-
+import { Link, useHistory, withRouter } from 'react-router-dom';
 
 
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FolderIcon from '@material-ui/icons/Folder';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PolicyIcon from '@material-ui/icons/Policy';
 
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) =>
@@ -50,11 +51,21 @@ const Footer =()=>{
                 value='recents'
                 icon={<RestoreIcon/>}
                 />
-                <BottomNavigationAction
-                label="Favorites"
-                value='favorites'
-                icon={<FavoriteIcon/>}
-                />
+
+                
+               <BottomNavigationAction
+
+
+                label={ <Link to='/policy'>Privacy Policy</Link>}
+                value='policy'
+                icon={<PolicyIcon/>}
+                >
+                   <Typography> Privacy Policy
+                       </Typography>
+                    </BottomNavigationAction>
+
+
+
                 <BottomNavigationAction
                 label="Nearby"
                 value='nearby'

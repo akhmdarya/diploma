@@ -128,9 +128,9 @@ const getFlags = (entries) => {
   }, {});
 
   // set no_ssl 
-  const noSslEntries = entries.filter(e => new URL(e.request.url).protocol == 'http:');
-  const noSslDomains = sortUnique(noSslEntries.map(e => new URL(e.request.url).host));
-  noSslDomains.forEach(domain => flags[domain]['no_ssl'] = true);
+  // const noSslEntries = entries.filter(e => new URL(e.request.url).protocol === 'http:');
+  // const noSslDomains = sortUnique(noSslEntries.map(e => new URL(e.request.url).host));
+  // noSslDomains.forEach(domain => flags[domain]['no_ssl'] = true);
 
   // google analytics ga_aip flag
   const gaDomain = '.google-analytics.com';
@@ -159,7 +159,7 @@ const getFlags = (entries) => {
     'connect.facebook.net': 'Facebook_Connect',
     'ping.chartbeat.net': 'Chartbeat_Analytics',
     'bam.nr-data.net': 'nr_in_us',
-    '	no_ssl':'	no_ssl'
+  
   };
   for (const domain of Object.keys(flags)) {
     if (domain in domainFlags) {

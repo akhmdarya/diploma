@@ -158,8 +158,8 @@ const Header =()=>{
         },
         {
             id:3,
-          menuTitle: "Products",
-          pageURL: "/products"
+          menuTitle: "Cookies",
+          pageURL: "/cookies"
         }
       ];
 

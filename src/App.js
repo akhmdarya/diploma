@@ -1,5 +1,7 @@
 import logo from './logo.svg';
+import CookieConsent, { Cookies, getCookieConsentValue } from "react-cookie-consent";
 import './App.css';
+import { Link } from 'react-router-dom';
 import Header from './Components/Header'
 import SpacingGrid from './Components/Grid'
 import SimpleContainer from './Components/Container'
@@ -10,8 +12,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Footer from './Components/footer/Footer.jsx'
 import FlagInfo from './Components/flags/FlagInfo'
 import LoginPage from './Components/pages/login/LoginPage.tsx'
-import CookieConsent from "react-cookie-consent";
+
 import CookieBanner from 'react-cookie-banner';
+import Policy from './Components/pages/footersPages/Policy'
 
 
 function App() {
@@ -20,6 +23,10 @@ function App() {
     banner: {
        backgroundColor:"#3f51b5"
     },
+    link:{
+      color:'white',
+      textDecoration: 'underline',
+    }
   }
  
 
@@ -33,14 +40,23 @@ function App() {
      
      <BrowserRouter>
           <Header/> 
-          <CookieConsent debug={true} 
+          <CookieConsent
+           cookieName="ACCEPTANCE"
+
+
+          debug={true} 
 style={styles.banner}
+
 
   enableDeclineButton
   onDecline={() => {
-    alert("You can leave the web site");
+    // CookieConsent.name('false');
+ 
+    console.log(getCookieConsentValue());
+    
+    alert("Cookie settings have been changed");
   }}
->  This website uses cookies.</CookieConsent>
+>  This website uses cookies. <Link style={styles.link} to ='/policy'> About consent</Link></CookieConsent>
         
   
  
@@ -50,13 +66,15 @@ style={styles.banner}
           <Route exact path="/result/:url" component={ResultPage} />
         
           <Route path="/login" component={LoginPage} />
-          <Route path="/cookies/:flagName" component={FlagInfo} />
+          <Route exact path="/cookies/:flagName" component={FlagInfo} />
+          <Route excact path="/cookies" component={FlagInfo} />
+          <Route path="/policy" component={Policy} />
         
  {/* <SimpleContainer/> */}
 
 
               </Switch>
-         <Footer/>      
+         <Footer />      
   </BrowserRouter>
 
  

@@ -101,7 +101,7 @@ const TablePorts  = (props)=>{
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow className={classes.mainn}>
-            <TableCell>IP</TableCell>
+            <TableCell align="center">IP</TableCell>
             <TableCell align="center">Port</TableCell>
             <TableCell align="center">Banner</TableCell>
             {/* <TableCell align="right">Name</TableCell> */}
@@ -117,7 +117,7 @@ const TablePorts  = (props)=>{
                result.ip?
             
                <TableRow key={result.port}>
-                 <TableCell component="th" scope="row">
+                 <TableCell align="center" component="th" scope="row">
                    {result.ip}
                   {/* {{const date= }} */}
                  </TableCell>

@@ -104,7 +104,7 @@ const TableStorages  = (props)=>{
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow className={classes.mainn}>
-            <TableCell>Name of Storage</TableCell>
+            <TableCell align="center" component="th">Name of Storage</TableCell>
             <TableCell align="center">Entry</TableCell>
            
           </TableRow>
@@ -114,7 +114,7 @@ const TableStorages  = (props)=>{
         {props.results.map((result) =>(
                result.type?
                <TableRow key={result.key}>
-               <TableCell component="th" scope="row">
+               <TableCell align="center" component="th" scope="row">
                  {result.type}
                </TableCell>
                <TableCell align="center">{result.key}</TableCell>

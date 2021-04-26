@@ -97,7 +97,7 @@ const TableCookies = (props) => {
           <Table className={classes.table} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow className={classes.mainn}>
-                <TableCell>Domain</TableCell>
+                <TableCell align="center">Domain</TableCell>
                 <TableCell align="center">Ping</TableCell>
                 <TableCell align="center">Hostname</TableCell>
                 <TableCell align="center">Flags</TableCell>
@@ -112,7 +112,7 @@ const TableCookies = (props) => {
               {props.results.map((result) => (
                 result.ping ?
                   <TableRow key={result.hostname}>
-                    <TableCell component="th" scope="row">
+                    <TableCell align="center" component="th" scope="row">
                       {result.domain}
                     </TableCell>
                     <TableCell align="center">{result.ping}</TableCell>
