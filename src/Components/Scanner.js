@@ -9,16 +9,7 @@ app.listen(4400, () => {
   console.log("Server running on port 4400");
 });
 app.use(cors())
-// var corsOptions = {
 
-//     "origin": "*",
-//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     "preflightContinue": false,
-//     "optionsSuccessStatus": 204
-
-// }
-
-// app.use(cors(corsOptions));
 
 app.get("/parse", async (req, res, next) => {
   const queryObject = req.query.url;
@@ -26,7 +17,7 @@ app.get("/parse", async (req, res, next) => {
   console.log(kek);
   res.send(kek);
 });
-
+ 
 
 
 const puppeteer = require('puppeteer');
@@ -151,7 +142,7 @@ const getFlags = (entries) => {
 
   // set domain flags
   const domainFlags = {
-    'fonts.gstatic.com': 'g_fonts',
+   
     'fonts.googleapis.com': 'g_fonts',
     'stats.g.doubleclick.net': 'Google_DoubleClick_Ads',
     'googleads.g.doubleclick.net ': 'Google DoubleClick Ads',
@@ -240,43 +231,6 @@ const getData = async (url) => {
     // ports:[]
   }
 
-// const res22 = await isPortReachable(22, {
-//       host: url
-//     })
-//      //должен быть доступ по авторизации== закрыт
-
-// // const res2 =await portscanner.checkPortStatus(22, url, function(error, status) {
-// //         // Status is 'open' if currently in use or 'closed' if available
-// //         return status;
-// //       })
-//  data.ports.push({
-//           isreachable:res22, portName:' SSH '
-//         });
-
-//   const res443 = await isPortReachable(443, {
-//           host: url
-// })
-// let res2 =await portscanner.checkPortStatus(443, url, function(error, status) {
-//   res2=status;
-// console.log(status+"443!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
-//         // Status is 'open' if currently in use or 'closed' if available
-//         return status;
-//       })
-
-// data.ports.push({
-//   isreachable:res443, portName:' HTTPS  '
-// });
-
-// const res80 = await isPortReachable(80, {
-//   host: url
-// })
-// data.ports.push({
-// isreachable:res80, portName:' HTTP  '
-// });
-
-
-
-
 
 
 
@@ -299,8 +253,8 @@ const getData = async (url) => {
 
 
 
-    const cookieFlags = ['_gid', '_ga','kek','VISITOR_INFO1_LIVE*','ASP.NET_SessionId', '__zjc*','language','CookieControl',
-    '_ym_isad','_ym_uid','_ym_visorc_NNNNN'];
+    const cookieFlags = ['_gid','_gat', '_ga','VISITOR_INFO1_LIVE*','ASP.NET_SessionId', '__zjc*','language','CookieControl',
+    '_ym_isad','_ym_uid','_ym_d','_ym_visorc_NNNNN'];
     for (const cookieFlag of cookieFlags) {
       if ((cookieFlag ===cookie.name)) {
         cookie.flagCookies=cookieFlag ;
@@ -321,11 +275,28 @@ const getData = async (url) => {
     });
   }
   for (key of Object.keys(browserData.localStorage)) {
-    data.localStorage.push({
+
+    let flag =''
+ 
+  
+    const localStorageFlags = ['_ym_synced'];
+    for (const localStorageFlag of localStorageFlags) {
+      if ((localStorageFlag ===key)) {
+        console.log('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
+        data.localStorage.flaglocalStorage=localStorageFlag ;
+        data.localStorage.push({flaglocalStorage:browserData.localStorage.flaglocalStorage})
+        flag= localStorageFlag;
+ 
+       }
+    }
+     data.localStorage.push({
       key: key,
       value: browserData.localStorage[key],
-      type: "local"
+      type: "local",
+       flaglocalStorage:flag
+     
     });
+  
   }
   return data;
 
@@ -337,13 +308,11 @@ const getData = async (url) => {
 
 const options = {
     target:url1,
-    port:'1-443',
+    port:'1-65535',
     status:'O', // Timeout, Refused, Open, Unreachable
     
-    banner:true
-    
+    banner:true  
 };
-
 new Evilscan(options, (err, scan) =>{
 
     if (err) {
@@ -352,29 +321,13 @@ new Evilscan(options, (err, scan) =>{
     }
 
     scan.on('result', data => {
-     
-
-
-
-           
-           
-            // if(data.status=='open'){
-              response.push(data);
-            //   console.log(data);
-            // }
-          //  response.sort((a, b) => a.port > b.port ? 1 : -1);
-    
-          
-        
+              response.push(data);        
     });
-
     scan.on('error', err => {
         throw new Error(data.toString());
 
     });
-
     scan.on('done', () => {
-        // finished !
     });
 
     scan.run();

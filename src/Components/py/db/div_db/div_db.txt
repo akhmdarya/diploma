@@ -1,0 +1,10 @@
+cookies-content
+cookies-banner
+cookies-message
+cookies-bar
+cookie-notification
+privacy-notification
+privacy-banner
+check-privacy-policy
+data-nocookies
+notice-content

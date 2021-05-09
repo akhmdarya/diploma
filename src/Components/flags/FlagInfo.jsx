@@ -63,7 +63,7 @@ const FlagInfo = (flagName) => {
 
     const [, setValue] = useState("Recents")
     const results = [
-        { name: 'g_fonts', description: 'The privacy policy of Google Fonts is not very clear.' },
+       
         { name: 'google_no_anonymip', description: 'No anonymization of IP addresses that are sent to Google Analytics is requested.' },
         { name: 'Google_DoubleClick_Ads', description: 'Ads are most likely not required for the functionality of the site and thus sharing IP address and user agent with Google for this purpose requires consent.' },
         { name: 'li_ads', description: 'Ads are most likely not required for the functionality of the site and thus sharing IP address and user agent with Microsoft for this purpose requires consent.' },
@@ -73,13 +73,17 @@ const FlagInfo = (flagName) => {
 
         { name: 'CookieControl', description: 'This cookie is used to remember a user’s choice about cookies on ico.org.uk. Where users have previously indicated a preference, that user’s preference will be stored in this cookie.' },
         { name: 'language', description: 'This cookie is used to remember any selection a user has made about language on ico.org.uk, using the language selector, so that the site will be shown in their chosen language when returning to the site. ' },
-        { name: '_ga,_gali, _gat,_gid', description: 'These cookies are used to collect information about how visitors use our website. We use the information to compile reports and to help us improve the website. The cookies collect information in a way that does not directly identify anyone, including the number of visitors to the website and blog, where visitors have come to the website from and the pages they visited.' },
         { name: '__zjc*', description: 'This cookie is set by a third-party web application firewall from Dyn to help maintain the security and performance of our website. Some traffic may receive a challenge to check if it is genuine and if it is, a cookie is set so the user isn’t challenged again.' },
         { name: 'ASP.NET_SessionId', description: 'This cookie is essential for the breach notification form – the form that public electronic communications service providers use to notify the ICO of a security breach – to operate. It is set only for those people using the form. This cookie is deleted when you close your browser.' },
         { name: 'VISITOR_INFO1_LIVE*', description: 'VISITOR_INFO1_LIVE - *expires after eight months' },
         { name: '_ym_isad', description: 'Это сторонние файлы cookie, размещенные Яндексом, которые позволяют нам использовать службу Yandex Metrics.Эти файлы cookie позволяют анонимно отслеживать, как посетители получают доступ и просматривают наш веб-сайт, что позволяет нам оптимизировать и улучшать наш сервис.' },
-        { name: 'no_ssl', description: "It seems that there are requests done with 'http://' instead of 'https://' (no SSL)." }
-
+        { name: 'no_ssl', description: "It seems that there are requests done with 'http://' instead of 'https://' (no SSL)." },
+        { name: '_ga', description: "Allows to distinguish between users." },
+        { name: '_gid', description: "Allows to distinguish between users." },
+        { name: '_gat', description: "Limits the frequency of requests. If Google Analytics is supported using Google Tag Manager, the file will be named _dc_gtm_ <property- id>" },
+        { name: '_ym_uid', description: "Allows to distinguish between users." },
+        { name: '_ym_d', description: "Stores the date of the first visit of a visitor to the site" },
+        { name: '_gid', description: "Allows to distinguish between users." },
     ];
 
 
@@ -111,8 +115,57 @@ When the cookie is exchanged between your computer and the network server, the s
             <Typography className={classes.subtitle} component="p">Types of cookies
             </Typography>
 
-            <Typography className={classes.text} component="p">About cookies
+            <Typography className={classes.subtitle} component="p">First-party Cookies
             </Typography>
+            <Typography className={classes.text} component="p">First-party cookies are set by the website visited by the user. 
+            The data collected using first-party cookies is used for purposes like calculating pageviews, sessions, and number of users. 
+            </Typography>
+
+            <Typography className={classes.text} component="p">Primarily, publishers have access to data collected using first-party cookies,
+             which can later be shared with advertisers or agencies for ad targeting. Apart from that, analytics tools – like Google Analytics
+             – use first-party cookies to understand user behavior and present it in tabular or graphical form for the publisher’s understanding.
+            </Typography>
+
+            <Typography className={classes.subtitle} component="p">Third-party Cookies
+            </Typography>
+
+            <Typography className={classes.text} component="p">Third-party cookies are set by domains that are not directly visited by the user.
+             This happens when publishers add third-party elements (like chatbot, social plugins, or ads) on their website. 
+            </Typography>
+
+
+            <Typography className={classes.text} component="p">Once installed, third-party cookies also track users and save their information for ad targeting and behavioral advertising.
+             For example: Let’s say that you added a YouTube link to one of your blogs. Whenever this YouTube link gets a click, 
+             a YouTube cookie will be added to the user’s browser. This cookie can track him/her until it expires.
+             </Typography>
+
+
+             <Typography className={classes.subtitle} component="p">Session Cookies
+            </Typography>
+
+            <Typography className={classes.text} component="p">Session cookies either expire immediately or within a few seconds of the user leaving the web browser. 
+            Among other uses, these cookies are used by e-commerce websites to remember the product placed in cart by the user,
+             to keep users logged in, and to calculate each user session for analytical purposes.
+            </Typography>
+            <Typography className={classes.text} component="p">For example, if an e-commerce website does not use session cookies, then the items added in cart will be removed by the time the user reaches the checkout page. And the server will forget the user and treat him/her like a completely new visitor. 
+            </Typography>
+
+
+            <Typography className={classes.subtitle} component="p">Persistent Cookies
+            </Typography>
+
+            <Typography className={classes.text} component="p">As the name suggests, persistent cookies stay on the user’s browser for a very long time. 
+            Generally, persistent cookies are required to have an expiration date which could be anything between a second to 10 years.
+            </Typography>
+            <Typography className={classes.text} component="p">Permanent cookies, also known as 'persistent cookies', remain in operation even after the web browser has closed. For example they can remember login details and passwords so web users don't need to re-enter them every time they use a site.
+            </Typography>
+
+            <Typography className={classes.subtitle} component="p">Secure Cookies
+            </Typography>
+
+            <Typography className={classes.text} component="p">Only HTTPS websites can set secure cookies, i.e., cookies with encrypted data. Mostly, the checkout or payment pages of e-commerce websites have secure cookies to facilitate safer transactions. Similarly, online banking websites are required to use secure cookies for security reasons.
+            </Typography>
+           
 
 </div>
 </Container>

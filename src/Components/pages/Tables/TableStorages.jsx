@@ -106,6 +106,7 @@ const TableStorages  = (props)=>{
           <TableRow className={classes.mainn}>
             <TableCell align="center" component="th">Name of Storage</TableCell>
             <TableCell align="center">Entry</TableCell>
+            <TableCell align="center">Flag</TableCell>
            
           </TableRow>
         </TableHead>
@@ -118,6 +119,7 @@ const TableStorages  = (props)=>{
                  {result.type}
                </TableCell>
                <TableCell align="center">{result.key}</TableCell>
+               <TableCell align="center">{result.flaglocalStorage}</TableCell>
               
              </TableRow>
                :

@@ -22,6 +22,7 @@ export interface Info {
     is_leader: boolean;
     likesCount?: number;
     commentsCount?: number;
+    flaglocalStorage?:string;
 }
 
     
