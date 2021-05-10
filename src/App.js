@@ -15,6 +15,7 @@ import LoginPage from './Components/pages/login/LoginPage.tsx'
 
 import CookieBanner from 'react-cookie-banner';
 import Policy from './Components/pages/footersPages/Policy'
+import Aboutgdpr from './Components/pages/about/Aboutgdpr'
 
 
 function App() {
@@ -68,6 +69,7 @@ style={styles.banner}
           <Route path="/login" component={LoginPage} />
           <Route exact path="/cookies/:flagName" component={FlagInfo} />
           <Route excact path="/cookies" component={FlagInfo} />
+          <Route excact path="/whatIsGdpr" component={Aboutgdpr} />
           <Route path="/policy" component={Policy} />
         
  {/* <SimpleContainer/> */}

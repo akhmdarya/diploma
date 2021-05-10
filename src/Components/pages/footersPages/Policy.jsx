@@ -1,16 +1,7 @@
 
-import Header from '../../Header'
-import SpacingGrid from '../../Grid'
-import SimpleContainer from '../../Container'
-import ResultPage from '../ResultPage'
 // import ResultPage from './Components/pages/login/LoginPage'
 // import { Switch, Route } from 'react-router-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Footer from '../../footer/Footer.jsx';
-import FlagInfo from '../../flags/FlagInfo'
 
-import CookieConsent from "react-cookie-consent";
-import CookieBanner from 'react-cookie-banner';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
@@ -32,6 +23,7 @@ const styles = {
     paddingTop: '50px',
   },
   text: {
+    textIndent: '1.5em',
     fontSize: '18px',
     fontWeight: '400',
     paddingTop: '10px',

@@ -279,10 +279,10 @@ const getData = async (url) => {
     let flag =''
  
   
-    const localStorageFlags = ['_ym_synced'];
+    const localStorageFlags = ['_ym_synced', '_ym_retryReqs','_ym_uid', '_reqNum'];
     for (const localStorageFlag of localStorageFlags) {
-      if ((localStorageFlag ===key)) {
-        console.log('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
+      if ((localStorageFlag ===key ||key.includes(0,localStorageFlag))) {
+        // console.log('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
         data.localStorage.flaglocalStorage=localStorageFlag ;
         data.localStorage.push({flaglocalStorage:browserData.localStorage.flaglocalStorage})
         flag= localStorageFlag;

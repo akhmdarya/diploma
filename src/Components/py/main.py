@@ -20,6 +20,7 @@ data_div_list = list()
 #url-privacy list
 data_url_list = list()
 
+
 #privacy-link list
 privacy_list = list()
 data_privacy_list = list()
@@ -88,8 +89,11 @@ def main(url):
     x["Banner"]=array[0][1]
     x["Privacy_link"]=privacy_link
     #print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: " + url)
-    return x
-    karina(privacy_link)
+    data = url.replace('http://','')
+    f = open('url\\'+data+".txt", "w")
+    f.write(url + '\n' + str(karina(privacy_link)))
+    f.close()
+    os.system('cmd /k flask run --port=5050')
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
@@ -118,7 +122,8 @@ def karina(privacy_link):
                 break
         if(count<(len(dataDB)/3)): 
             x[f]='False'
-    print(x)
+    return x
+    
     
     
 
@@ -154,15 +159,3 @@ print("nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: " + url)
 #         #     x["Result"] = AntiVirus(url)
 #         # if(sys.argv[i]=='-banner'):
 #     main(url)
-        
-
-
-        
-            
-    
-    
-
-        
-            
-    
-

@@ -36,6 +36,7 @@ const useStyles = makeStyles(() =>
             paddingTop: '50px',
         },
         text: {
+            textIndent: '1.5em',
             fontSize: '18px',
             fontWeight: '400',
             paddingTop: '10px',

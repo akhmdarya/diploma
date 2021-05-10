@@ -1,0 +1,2 @@
+http://dl.iitu.kz
+{'Banner': 'False', 'Privacy_link': 'https://dl.iitu.edu.kz/admin/tool/dataprivacy/summary.php', 'Article_6 ( Lawfulness of processing)': 'False', 'Contact': 'False', 'Period': 'False', 'Third_parties': 'False', 'Result': 'null', 'Article_6': 'False'}
