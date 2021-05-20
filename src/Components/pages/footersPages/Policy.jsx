@@ -135,7 +135,7 @@ function Policy() {
             <Typography style={styles.text} component="p">3.4. If we receive your personal data,
             you have the right to access, change or transfer your personal data, as well as to restrict the processing
             or delete your personal data from the database. To exercise these rights or to contact us with any other privacy concerns,
- please contact us at the following email address: gdprchecker @ .com</Typography>
+ please contact us at the following email address: gdpr.kz@gmail.com</Typography>
 
             <Typography style={styles.subtitle} component="p">
               4. Copyright

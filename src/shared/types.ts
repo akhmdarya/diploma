@@ -24,6 +24,10 @@ export interface Info {
     commentsCount?: number;
     flaglocalStorage?:string;
 }
+export interface InfoHTML {
+    Banner: boolean;
+    Privacy_link:string;
+}
 
     
 

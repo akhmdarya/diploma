@@ -7,3 +7,5 @@ contact information
 collector
 contact us
 contacting us
+about
+About

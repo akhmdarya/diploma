@@ -1,8 +1,4 @@
-import sys
-# Takes first name and last name via command 
-# line arguments and then display them
-def main(url):
-    print("name: " + url)
+import os
 
-main(sys.argv[1])
+os.system('cmd /k flask run --port=5050')
 

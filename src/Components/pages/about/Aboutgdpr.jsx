@@ -1,21 +1,9 @@
-
-import Header from '../../Header'
-import { Link } from 'react-router-dom';
-
-import SpacingGrid from '../../Grid'
-import SimpleContainer from '../../Container'
-import ResultPage from '../ResultPage'
-// import ResultPage from './Components/pages/login/LoginPage'
-// import { Switch, Route } from 'react-router-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Footer from '../../footer/Footer.jsx';
-import FlagInfo from '../../flags/FlagInfo'
 import rightsofsubjects from "../../../assets/images/gdprsubject.png";
 import principles from "../../../assets/images/principles.png";
 import processing2 from "../../../assets/images/processing2.jpg";
 import confData from "../../../assets/images/confData.png";
-import { createStyles, useMediaQuery, Avatar, AppBar, BottomNavigationAction, Button, Container, IconButton, Toolbar, Typography, useTheme, BottomNavigation, Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { createStyles, Container, Typography, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
+import React, {  } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -92,7 +80,7 @@ const useStyles = makeStyles((theme) =>
             alignItems: 'center',
             cursor: 'none',
             // flexDirection:'column',
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('xs')]: {
 
                 display: 'flex',
                 flexDirection: 'column'
@@ -100,17 +88,28 @@ const useStyles = makeStyles((theme) =>
         },
         img: {
             height: '100%',
+            
             width: '550px',
+            [theme.breakpoints.down('xs')]: {
+                maxWidth: '300px'
+            }
 
         },
         img1: {
             height: '100%',
             width: '350px',
+            [theme.breakpoints.down('xs')]: {
+            maxWidth: '300px',
+            }
 
         },
         img2: {
             height: '100%',
             width: '350px',
+            [theme.breakpoints.down('xs')]: {
+            maxWidth: '300px',
+            }
+          
 
         },
         button: {

@@ -3,15 +3,15 @@ from search import findURL
 from virustotal import AntiVirus
 
 import json
-import sys
 import os
 import requests
+import urllib.request
 import re
 from bs4 import BeautifulSoup
 
 
 
-array = [['Banner','False'],['Privacy_link','False']]
+array = [["Banner","False"],["Privacy_link","False"]]
 
 
 #div-banner list
@@ -24,9 +24,9 @@ data_url_list = list()
 #privacy-link list
 privacy_list = list()
 data_privacy_list = list()
-dataJson = '{ "Banner":"False", "Privacy_link":"null", "Article_6 ( Lawfulness of processing)":"False", "Contact":"False", "Period":"False", "Third_parties":"False", "Result": "null"}' 
+dataJson = ' { "Banner":"False", "Privacy_link":"null", "Article_6 ( Lawfulness of processing)":"False", "Contact":"False", "Period":"False", "Third_parties":"False", "Result": "null"} '
 x = json.loads(dataJson)
-symbol = '.;'
+symbol = ".;"
 
 #Sort list function
 def sort_list(seq):
@@ -37,19 +37,30 @@ def sort_list(seq):
 
 #Main fucnction
 def main(url):
-    
-    privacy_link = ''
+   
+    data_div_list.clear()
+    data_url_list.clear()
+    privacy_list.clear()
+    data_privacy_list.clear()
+
+
+    privacy_link = ""
     
     #create wordlist
     data_div_list.extend(wordlist("db\\div_db\\div_db.txt"))
     data_url_list.extend(wordlist("db\\link_db\\link_db.txt"))
-    # print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: " + url)
     #url request
-    response = requests.get(url)
+    # response = requests.get(url)
+    try:
+        response=urllib.request.urlopen(url).read()
+    except:
+       response=urllib.request.urlopen('http://'+url).read() 
+    
 
     #html parser
-    soup = BeautifulSoup(response.text, 'html.parser')
-    #print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: " + url)
+    soup = BeautifulSoup(response, 'lxml')
+    
+
     #link parser
     mylinks = soup.find_all('a')
     #div parser
@@ -59,46 +70,42 @@ def main(url):
     for banner in mydivs:
         for div in data_div_list:
             if(str(banner).find(div)>0):
-                array[0][1]='True'
+                array[0][1]="True"
 
 
     #privacy link cheker
     for link in mylinks:
         for line in data_url_list:
-            link_ = str(link).replace('https',' ').replace('/',' ')
+            link_ = str(link).replace('https'," ").replace('/'," ")
             if(link_.find(line)>0):
                 privacy_list.extend(findURL(str(link), url))
-    
     
     #request privacy_link
     if(len(privacy_list)!=0):
         #list sort
         data_privacy_list.extend(sort_list(privacy_list))
-        for line in data_privacy_list:
+        if(len(data_privacy_list)):
             array[1][1] = 'True'
-        for line in data_url_list:
-            for link_ in privacy_list:
+        for link_ in privacy_list:
+            for line in data_url_list:
                 if(link_.find(line)>0):
-                    privacy_link = str(link_).replace('\n','')
+                    privacy_link = str(link_).replace('\n',"")
                     break
             if(breakpoint):
                 break
-        
-    #print('URL: ' + url + '\n')
+    
+    if(privacy_link):
+        x["Privacy_link"]=privacy_link
+        return str(karina(privacy_link))
+    return x
    
-    x["Banner"]=array[0][1]
-    x["Privacy_link"]=privacy_link
-    #print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: " + url)
-    data = url.replace('http://','')
-    f = open('url\\'+data+".txt", "w")
-    f.write(url + '\n' + str(karina(privacy_link)))
-    f.close()
-    os.system('cmd /k flask run --port=5050')
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
 def karina(privacy_link):
-    
+    if(privacy_link[0:4]!='http'):
+        privacy_link='http://'+privacy_link
+
     #url request
     response = requests.get(privacy_link)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -109,7 +116,7 @@ def karina(privacy_link):
     for f in files:
         count=0
         dataDB = wordlist(dir+f)
-        f=f.replace('.txt','')
+        f=f.replace('.txt',"")
 
         for p in my_ul_li:
             count=0
@@ -118,44 +125,10 @@ def karina(privacy_link):
                     count=count+1
 
             if(count>=(len(dataDB)/3)):
-                x[f]='True'
+                x[f]="True"
                 break
         if(count<(len(dataDB)/3)): 
-            x[f]='False'
+            x[f]="False"
     return x
-    
-    
-    
 
-    
-url=''
-
-
-
-#main(url)
-#AntiVirus(url)
-#karina(url)
-url='http://'+sys.argv[1]
-# async def ch(url):
-print(main(url))
-
-print("nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: " + url)
-
-# print(dataJson)
-# sys.stdout.flush()
-# if(len(sys.argv)<=0):
-#     url='http://'+sys.argv[1]
-#     main(url)
-#     print("name: " + sys.argv[1])
-#     print('python main.py -url  https://www.netflix.com/kz/ -banner -virus')
-
-# else:
-    
-#         # if(sys.argv[i]=='-url'):
-#         # sys.argv[3]=='-url'
-#         # sys.argv[4]=='-url'
-#     url='http://'+sys.argv[1]
-#         # if(sys.argv[i]=='-virus'):
-#         #     x["Result"] = AntiVirus(url)
-#         # if(sys.argv[i]=='-banner'):
-#     main(url)
+main('https://coinmarketcap.com')

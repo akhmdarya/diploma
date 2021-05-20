@@ -1,4 +1,5 @@
 import React, {  } from 'react';
+import { Link } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -119,7 +120,10 @@ const TableStorages  = (props)=>{
                  {result.type}
                </TableCell>
                <TableCell align="center">{result.key}</TableCell>
-               <TableCell align="center">{result.flaglocalStorage}</TableCell>
+              
+               <TableCell align="center">
+               <Link to={`/cookies/${result.flaglocalStorage}`}   target="_blank">{result.flaglocalStorage}</Link>
+                 </TableCell>
               
              </TableRow>
                :

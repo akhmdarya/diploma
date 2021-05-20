@@ -1,21 +1,20 @@
-import logo from './logo.svg';
-import CookieConsent, { Cookies, getCookieConsentValue } from "react-cookie-consent";
+import CookieConsent, { getCookieConsentValue } from "react-cookie-consent";
 import './App.css';
 import { Link } from 'react-router-dom';
 import Header from './Components/Header'
-import SpacingGrid from './Components/Grid'
 import SimpleContainer from './Components/Container'
 import ResultPage from './Components/pages/ResultPage'
+import { send } from 'emailjs-com';
 // import ResultPage from './Components/pages/login/LoginPage'
 // import { Switch, Route } from 'react-router-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Footer from './Components/footer/Footer.jsx'
 import FlagInfo from './Components/flags/FlagInfo'
 import LoginPage from './Components/pages/login/LoginPage.tsx'
 
-import CookieBanner from 'react-cookie-banner';
 import Policy from './Components/pages/footersPages/Policy'
 import Aboutgdpr from './Components/pages/about/Aboutgdpr'
+import Contact from './Components/pages/about/Contact'
 
 
 function App() {
@@ -71,6 +70,11 @@ style={styles.banner}
           <Route excact path="/cookies" component={FlagInfo} />
           <Route excact path="/whatIsGdpr" component={Aboutgdpr} />
           <Route path="/policy" component={Policy} />
+          <Route path='/contact' component={Contact}></Route>
+          <Route path="*">
+              <Redirect to="/" />
+            </Route>
+
         
  {/* <SimpleContainer/> */}
 

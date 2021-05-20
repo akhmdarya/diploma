@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextFieldComponent from './TextField';
 import PageItems from '../Components/elements/PageItems';
+import Checklist from '../Components/elements/Checklist';
 import Wallpaper from '../Components/Wallpaper';
 
 
@@ -36,6 +37,7 @@ export default function SimpleContainer() {
         
 <TextFieldComponent />
 <PageItems/>
+<Checklist/>
 </Typography>
 
  {/* <Footer/> */}

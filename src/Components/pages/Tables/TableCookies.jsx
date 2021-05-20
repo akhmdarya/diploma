@@ -129,7 +129,8 @@ const TableCookies  = (props)=>{
                  <TableCell align="center">{result.sameSite}</TableCell>
                  <TableCell align="center">{dateTime(result.expires)}</TableCell>
                  {/* <TableCell align="right">{result.flagCookies}</TableCell> */}
-                 <Link to={`/cookies/${result.flagCookies}`}   target="_blank"> {result.flagCookies}</Link>
+                 <TableCell align="center">
+                 <Link to={`/cookies/${result.flagCookies}`}   target="_blank"> {result.flagCookies}</Link></TableCell>
                  <TableCell align="center">{result.path}</TableCell>
                </TableRow>
                :

@@ -66,6 +66,8 @@ const FlagInfo = (flagName) => {
     const results = [
        
         { name: 'google_no_anonymip', description: 'No anonymization of IP addresses that are sent to Google Analytics is requested.' },
+        { name: 'google_anonymip', description: 'Anonymization of IP addresses that are sent to Google Analytics is requested.' },
+        
         { name: 'Google_DoubleClick_Ads', description: 'Ads are most likely not required for the functionality of the site and thus sharing IP address and user agent with Google for this purpose requires consent.' },
         { name: 'li_ads', description: 'Ads are most likely not required for the functionality of the site and thus sharing IP address and user agent with Microsoft for this purpose requires consent.' },
         { name: 'Facebook_Connect', description: 'Before people click the facebook connect/login button, their IP address and user agent is already shared with Facebook.' },
@@ -85,6 +87,10 @@ const FlagInfo = (flagName) => {
         { name: '_ym_uid', description: "Allows to distinguish between users." },
         { name: '_ym_d', description: "Stores the date of the first visit of a visitor to the site" },
         { name: '_gid', description: "Allows to distinguish between users." },
+        { name: '_ym_synced', description: "Enable ad serving or retargeting." },
+        { name: '_lsid', description: "Allows to distinguish between visitors" },
+        { name: '_reqNum', description: "Used to determine the ordinal number of the Metrica counter request in the browser" },
+        { name: '_ym_retryReqs', description: "Contains requests that the counter could not send to the server" },
     ];
 
 

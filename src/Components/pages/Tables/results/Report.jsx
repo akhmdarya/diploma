@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
       loader:{
         maxHeight:'100px',
         maxWidth:'120px',
+      },
+      bottomSpace:{
+        marginBottom:'20px'
       }
 }));
 
@@ -81,6 +84,12 @@ const Report = (props) => {
 
   const handleChangePorts = (event) => {
     setCheckedPorts((prev) => !prev);
+  
+  };
+  const [checkedDomain, setCheckedDomain] = React.useState(false);
+
+  const handleChangeDomain = (event) => {
+    setCheckedDomain((prev) => !prev);
   
   };
 
@@ -101,15 +110,32 @@ const Report = (props) => {
   const [flagPorts, setflagPorts] = React.useState(false); //false if only 443 80  //true - others
 
 let flagPort=0;
+let flagPortHTTPS=0;
 let flagLoadPort=-1;
 let flagStorages=0;
 let flagLoadStorages=-1;
+ console.log(props.resultsParser.Banner+'**************')
+let flagCookies=0;
+let flagLoadCookies=-1;
+let bannerCookies=0;
+let flagDomain=0;
+let flagLoadDomain=-1;
 
 
     return (
       <>
 
       {
+
+     (props.resultsParser.Banner==='True'?
+     
+(bannerCookies=1)
+     :
+     props.resultsParser.Banner==='False'?
+     (bannerCookies=-1)
+     :
+     (bannerCookies=bannerCookies)),
+
 
 props.results.map((result) =>(
   (result.ip?
@@ -144,8 +170,34 @@ props.results.map((result) =>(
      flagLoadStorages=1,
      flagStorages=flagStorages
 }</div>)
-)
+),
 
+(
+  result.name?
+  (<div className={classes.hidden}>
+    { flagLoadCookies=1,
+      flagCookies+=1
+    }</div>)
+    :
+   ( <div className={classes.hidden}>
+    {
+       flagLoadCookies=1,
+       flagCookies=flagCookies
+  }</div>)
+),
+(
+  result.ping?
+  (<div className={classes.hidden}>
+    { flagLoadDomain=1,
+      flagDomain+=1
+    }</div>)
+    :
+   ( <div className={classes.hidden}>
+    {
+       flagLoadDomain=1,
+       flagDomain=flagDomain
+  }</div>)
+)
 
 ))}
  
@@ -161,7 +213,7 @@ props.results.map((result) =>(
       </Typography>   
   </div>
 
-  <Button  onClick={handleChangePorts}>SHOW</Button>
+  <Button className={classes.bottomSpace} onClick={handleChangePorts}>SHOW</Button>
    
 
    {(checkedPorts?
@@ -189,8 +241,9 @@ props.results.map((result) =>(
   <img src = {correct} className={classes.img} />
 <Typography variant="h5" gutterBottom>Site security. Open Ports.
       </Typography></div>
-
-      <Button  onClick={handleChangePorts}>SHOW</Button>
+      <Typography variant="h6" gutterBottom>You have no open ports.
+      </Typography>
+      <Button className={classes.bottomSpace}  onClick={handleChangePorts}>SHOW</Button>
    
 
    {(checkedPorts?
@@ -208,33 +261,118 @@ props.results.map((result) =>(
 
 
 
-      {/* <Button  onClick={handleChangePorts}>SHOW</Button>
+
+
+{
+(flagCookies>0) && (bannerCookies===-1)? //ЕСЛИ ЕСТЬ КУКИ ??И НЕТ БАННЕРА ДОБАВИТЬ ЕСЛИ НЕТ БАННЕРА
+   
+<>
+<div className={classes.align}>
+<img src = {wrong} className={classes.img} />
+<Typography variant="h5" gutterBottom>Cookies: {flagCookies}
+ </Typography>   
+</div>
+<Typography variant="h6" gutterBottom>
+Your site is collecting cookies, but our scanner has not received information that you have a banner warning about the collection of cookies.
+</Typography>
+<Button className={classes.bottomSpace}  onClick={handleChangeCookies}>SHOW</Button>
+
+
+{(checkedCookies?
+    <div className={classes.container}>
+      {/* <Typography variant="h5" gutterBottom>Storages:</Typography> */}
+       <TableCookies results={props.results}/>
+    </div>
+    :
+    <></>)
+}
+</>       //ЕСЛИ ЕСТЬ КУКИ
+:
+
+
+    flagLoadCookies===-1? //LOADING
+    <>
+     <div className={classes.align}>
+   <img src = {load} className={classes.loader} />
+  <Typography variant="h5" gutterBottom>Cookies
+        </Typography></div>
+       
+    </>
+
+                //LOADING
+  
+    :
+    flagCookies>0 && (bannerCookies===1)?
+
+    <>
+     <div className={classes.align}>
+  <img src = {correct} className={classes.img} />
+<Typography variant="h5" gutterBottom>Cookies
+      </Typography></div>
+
+      <Button className={classes.bottomSpace} onClick={handleChangeCookies}>SHOW</Button>
    
 
-{(checkedPorts?
-      <div className={classes.container}>
-        <Typography variant="h5" gutterBottom>Ports:</Typography>
-         <TablePorts results={props.results}/>
-      </div>
-      :
-      <></>)
-} */}
+   {(checkedCookies?
+         <div className={classes.container}>
+           <Typography variant="h5" gutterBottom>Storages:</Typography>
+            <TableCookies results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+    </>
 
-{/* 
+    :  //НЕТ КУК
+    flagCookies===0 ?
+
+    <>
+     <div className={classes.align}>
+  <img src = {correct} className={classes.img} />
 <Typography variant="h5" gutterBottom>Cookies
-      </Typography>
-      <Button  onClick={handleChangeCookies}>SHOW</Button>
+      </Typography></div>
 
-{checkedCookies?
-      <div className={classes.container}>
-        <Typography variant="h5" gutterBottom>Cookies:</Typography>
-      <TableCookies results={props.results}/>
-      </div>
-      :
-      <></>
+      <Button className={classes.bottomSpace} onClick={handleChangeCookies}>SHOW</Button>
+   
+
+   {(checkedCookies?
+         <div className={classes.container}>
+          
+            <TableCookies results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+    </>
+    //НЕТ КУК
+
+      : // ЕСЛИ ЧТО ТО ДРУГОЕ, Н_Р НЕ НАЙДЕНО АНДЕФАНЕД ИЛИ
+      <>
+      <div className={classes.align}>
+    <img src = {question} className={classes.img} />
+ <Typography variant="h5" gutterBottom>Cookies {flagCookies}
+       </Typography>   
+      
+   </div>
+  <Typography variant="h6" gutterBottom>  Perhaps our service did not find your banner with a notification about the collection of cookies,
+         or such a banner is not on your site. However, below you can view the cookies that your site collects.
+         </Typography>
+   <Button className={classes.bottomSpace} onClick={handleChangeCookies}>SHOW</Button>
+    
+ 
+    {(checkedCookies?
+          <div className={classes.container}>
+            
+             <TableCookies results={props.results}/>
+          </div>
+          :
+          <></>)
+    }
+   </>// ЕСЛИ ЧТО ТО ДРУГОЕ, Н_Р НЕ НАЙДЕНО АНДЕФАНЕД ИЛИ
 }
 
 
+{/* 
 <Typography variant="h5" gutterBottom>Personal data is transmitted to 'adequate countries'
       </Typography>
       <Button  onClick={handleChange}>SHOW</Button>
@@ -261,7 +399,7 @@ flagStorages>0?
       </Typography>   
   </div>
 
-  <Button  onClick={handleChangeStorages}>SHOW</Button>
+  <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button>
    
 
    {(checkedStorages?
@@ -290,10 +428,10 @@ flagStorages>0?
 <Typography variant="h5" gutterBottom>Data in Local and Session Storages
       </Typography></div>
 
-      <Button  onClick={handleChangeStorages}>SHOW</Button>
+      <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button>
    
 
-   {(checkedPorts?
+   {(checkedStorages?
          <div className={classes.container}>
            <Typography variant="h5" gutterBottom>Storages:</Typography>
             <TableStorages results={props.results}/>
@@ -304,23 +442,60 @@ flagStorages>0?
   </>
 
 }
-{/* <>
-<Typography variant="h5" gutterBottom>Storages
-</Typography>
-  <Button onClick={handleChangeStorages}>SHOW</Button>
+{
+
+flagDomain>0?
+   
+     <>
+     <div className={classes.align}>
+   <img src = {question} className={classes.img} />
+<Typography variant="h5" gutterBottom>Domains: {flagDomain }
+      </Typography>   
+  </div>
+
+  <Button className={classes.bottomSpace} onClick={handleChangeDomain}>SHOW</Button>
+   
+
+   {(checkedDomain?
+         <div className={classes.container}>
+           {/* <Typography variant="h5" gutterBottom>Domains:</Typography> */}
+            <TableDomain results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+  </>
+:
+   
+   flagLoadDomain===-1?
+  <>
+   <div className={classes.align}>
+ <img src = {load} className={classes.loader} />
+<Typography variant="h5" gutterBottom>Domains:
+      </Typography></div>
   </>
 
-{(checkedStorages?
-<div className={classes.container}>
-<Typography variant="h5" gutterBottom>Storages:</Typography>
-<TableStorages results={props.results}/>
-</div>
-:
-<></>
-)}
+  :
+  <> 
+   <div className={classes.align}>
+  <img src = {correct} className={classes.img} />
+<Typography variant="h5" gutterBottom>Domains
+      </Typography></div>
 
-:
-(<></>) */}
+      <Button className={classes.bottomSpace}s onClick={handleChangeDomain}>SHOW</Button>
+   
+
+   {(checkedDomain?
+         <div className={classes.container}>
+           {/* <Typography variant="h5" gutterBottom>Domains:</Typography> */}
+            <TableDomain results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+  </>
+
+}
 
       </>
       )

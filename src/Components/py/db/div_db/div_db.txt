@@ -1,4 +1,5 @@
 cookies-content
+cookie_banner_paragraph
 cookies-banner
 cookies-message
 cookies-bar
@@ -8,3 +9,9 @@ privacy-banner
 check-privacy-policy
 data-nocookies
 notice-content
+cookie_consent
+cookie-policy
+onetrust-policy
+onetrust-banner-sdk
+hs-cookie-notification-position-bottom
+hs-eu-policy-wording

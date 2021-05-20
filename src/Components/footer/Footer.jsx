@@ -8,6 +8,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FolderIcon from '@material-ui/icons/Folder';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PolicyIcon from '@material-ui/icons/Policy';
+import ColorLensIcon from '@material-ui/icons/ColorLens';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) =>
@@ -22,13 +24,18 @@ const useStyles = makeStyles((theme) =>
         },
         footer:{
             backgroundColor: "#4169E1",
+            display:'flex',
+            flexDirection:'column',
             // bottom: "0",
             bottom: "0",
             // position: "fixed",
             width: "100%",
+        },
+        text:{
+            padding:'10px'
         }
     }))
-const Footer =()=>{
+const Footer = (props) => {
 
     
     const [value,setValue]=useState("Recents")
@@ -40,6 +47,10 @@ const Footer =()=>{
     return (
       
         <>
+        
+        
+
+
         <footer className={classes.footer}>
            <BottomNavigation
                 value={value}
@@ -47,10 +58,12 @@ const Footer =()=>{
                 className={classes.root}
             >
                 <BottomNavigationAction
-                label="Recents"
-                value='recents'
-                icon={<RestoreIcon/>}
-                />
+                label={<Link to='/cookies'>Cookies</Link>}
+                value='cookies'
+                icon={<Link to='/cookies'><ColorLensIcon></ColorLensIcon></Link>}
+                ><Typography> Cookies
+                </Typography>
+                    </BottomNavigationAction>
 
                 
                <BottomNavigationAction
@@ -58,7 +71,7 @@ const Footer =()=>{
 
                 label={ <Link to='/policy'>Privacy Policy</Link>}
                 value='policy'
-                icon={<PolicyIcon/>}
+                icon={<Link to='/policy'><PolicyIcon></PolicyIcon></Link>}
                 >
                    <Typography> Privacy Policy
                        </Typography>
@@ -67,18 +80,16 @@ const Footer =()=>{
 
 
                 <BottomNavigationAction
-                label="Nearby"
-                value='nearby'
-                icon={<LocationOnIcon/>}
-                />
-                <BottomNavigationAction
-                label="Folder"
-                value='folder'
-                icon={<FolderIcon/>}
-                />
+                label={ <Link to='/contact'>Contact Us</Link>}
+                value='Contact'
+                  icon={<Link to='/contact'><ContactMailIcon></ContactMailIcon></Link>}
+                >
+                 <Typography> Contact us
+                       </Typography>
+                       </BottomNavigationAction>
+              
                 </BottomNavigation>
-                <Typography align='center' color="textSecondary"
-                component="p" variant='subtitle1'>GDPR compliance checker</Typography>
+                 <Typography className={classes.text} component='h6' variant='h6'>GDPR Checker © 2021. All rights reserved.</Typography>
         </footer>
         </>
     );

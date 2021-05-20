@@ -10,6 +10,7 @@ import { Typography } from '@material-ui/core';
 import persd from '../../assets/images/pd.webp';
 import list from '../../assets/images/list2.jpg';
 import collect from '../../assets/images/search.png';
+import pic from '../../assets/images/pic.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },img_icon:{
       maxWidth:'100px',
       maxHeight:'100px'
+  },
+  pic:{
+    width:'100%'
   }
 }));
 
@@ -45,36 +49,37 @@ export default function SpacingGrid() {
   };
 
   const results= [
-  {id:1,image: persd,name:'Checking type of data web-site collects',author:'Бек А.', price:'25$',amount:'1', },
-  {id:2,image:collect,name:'Scanning privacy policy and cookie notice',author:'Мэнсон М.', price:'20$',amount:'1', },
-  {id:3,image:list,name:'Getting a report with results according GDPR articles',author:'Мэнсон М.', price:'20$',amount:'1', },
+  {id:1,image: persd,name:'Checking type of data web-site collects'},
+  {id:2,image:collect,name:'Scanning privacy policy and cookie notice' },
+  {id:3,image:list,name:'Getting a report with results according GDPR articles' },
  
 ];
 
 
   return (
-    <Grid container className={classes.root} >
-      
-      <Grid item xs={12}>
-      <Typography align='center' className={classes.text} variant='h5'>HOW IT WORKS</Typography>
-        <Grid container justify="center"  >
-          {/* {[0, 1, 2].map((value) => (
-            <Grid key={value} item>
-              <Paper className={classes.paper} />
-            </Grid>
-          ))} */}
+    <><Grid container className={classes.root}>
 
-{results.map((result) => (
-     <Grid key={result.id}className={classes.control}  item>
-      <img className={classes.img_icon} src={result.image} />
-      <Typography  className={classes.text}>
-          {result.name}
-      </Typography>
+      <Grid item xs={12}>
+        <Typography align='center' className={classes.text} variant='h5'>HOW IT WORKS</Typography>
+        <Grid container justify="center">
+          {/* {[0, 1, 2].map((value) => (
+      <Grid key={value} item>
+        <Paper className={classes.paper} />
       </Grid>
-))}
+    ))} */}
+
+          {results.map((result) => (
+            <Grid key={result.id} className={classes.control} item>
+              <img className={classes.img_icon} src={result.image} />
+              <Typography className={classes.text}>
+                {result.name}
+              </Typography>
+            </Grid>
+          ))}
+
         </Grid>
       </Grid>
-     
-    </Grid>
+
+    </Grid></>
   );
 }
