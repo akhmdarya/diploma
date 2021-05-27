@@ -11,7 +11,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Footer from './Components/footer/Footer.jsx'
 import FlagInfo from './Components/flags/FlagInfo'
 import LoginPage from './Components/pages/login/LoginPage.tsx'
-
+import RegisterPage from './Components/pages/register/RegisterPage'
 import Policy from './Components/pages/footersPages/Policy'
 import Aboutgdpr from './Components/pages/about/Aboutgdpr'
 import Contact from './Components/pages/about/Contact'
@@ -66,6 +66,7 @@ style={styles.banner}
           <Route exact path="/result/:url" component={ResultPage} />
         
           <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           <Route exact path="/cookies/:flagName" component={FlagInfo} />
           <Route excact path="/cookies" component={FlagInfo} />
           <Route excact path="/whatIsGdpr" component={Aboutgdpr} />

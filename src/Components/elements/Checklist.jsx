@@ -1,18 +1,20 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { amber, deepPurple, grey } from '@material-ui/core/colors';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Grid from '@material-ui/core/Grid';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import { Typography } from '@material-ui/core';
 
-import Favorite from '@material-ui/icons/Favorite';
 import HttpsIcon from '@material-ui/icons/Https';
 import checklist from '../../assets/images/GDPRChecklist_blog.jpg';
+import PaletteIcon from '@material-ui/icons/Palette';
+import PolicyIcon from '@material-ui/icons/Policy';
+import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
+import SecurityIcon from '@material-ui/icons/Security';
+import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,17 +23,26 @@ const useStyles = makeStyles((theme) => ({
       marginTop:theme.spacing(5),
       padding:theme.spacing(5),
     },img_icon:
-    {maxWidth:'400px',
+    {maxWidth:'300px',
+    borderRadius: '20px',
     [theme.breakpoints.down('sm')]: {
-        maxWidth:'280px'
+        maxWidth:'250px',
+        borderRadius: '20px',
        }
     },
+    background:{
+       backgroundColor: 'cornflowerblue', 
+       marginTop:theme.spacing(5),
+       padding:theme.spacing(5),
+      
+    },
     items:{
-        marginTop:theme.spacing(5),
-        padding:theme.spacing(5),
+       
+        padding:theme.spacing(3),
         display:'flex',
-        justifyContent:'space-between',
+        justifyContent:'space-evenly',
         alignItems:'center',
+        
         [theme.breakpoints.down('sm')]: {
             display:'flex',
             flexDirection:'column',
@@ -43,12 +54,20 @@ const useStyles = makeStyles((theme) => ({
     list:{
         display:'flex',
         flexDirection:'column',
-        alignItems:'center',
+        
     },
     label:{
         // color:'white',
-        fontSize:'20px',
-        fontWeight:'600'
+        fontSize:'18px',
+        fontWeight:'400',
+        color:'white',
+     
+    },
+    blue:{
+        color:'blue'
+    },
+    text:{
+        color:'white'
     }
 
 
@@ -56,13 +75,46 @@ const useStyles = makeStyles((theme) => ({
 
 const GreenCheckbox = withStyles({
   root: {
-    color: green[400],
+    color: grey[600],
     '&$checked': {
-      color: green[600],
+      
+      color: '#eeff41',
     },
   },
   checked: {},
-})((props) => <Checkbox color="default" {...props} />);
+})((props) => <Checkbox color="default" {...props}  />);
+
+const YellowCheckbox = withStyles({
+    root: {
+      color: grey[600],
+      '&$checked': {
+       
+        color: amber[600],
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props}  />);
+
+  const BlueCheckbox = withStyles({
+    root: {
+       color: grey[600],
+      '&$checked': {
+       
+        color: '#1de9b6',
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props}  />);
+  const DeepPurpleCheckbox = withStyles({
+    root: {
+       color: grey[600],
+      '&$checked': {
+      
+        color: deepPurple[600],
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props}  />);
 
 export default function Checklist() {
     const classes = useStyles();
@@ -72,6 +124,8 @@ export default function Checklist() {
     checkedB: true,
     checkedF: true,
     checkedG: true,
+    checkedC: true,
+    checkedD: true,
   });
 
   const handleChange = (event) => {
@@ -81,26 +135,54 @@ export default function Checklist() {
   return (
     <FormGroup row>
 
-<Grid item xs={12}>
+<Grid item xs={12} className={classes.background}>
+<Typography align='center' className={classes.text} variant='h5'>HOW TO BE GDPR COMPLIANT</Typography>
     <div className={classes.items}>
          <img className={classes.img_icon} src={checklist} />
          <div className={classes.list}>
-      <FormControlLabel className={classes.label}
-        control={<Checkbox  icon={<HttpsIcon />} checkedIcon={<HttpsIcon />} checked={state.checkedA} onChange={handleChange} name="checkedA" />}
+      <FormControlLabel 
+        control={<Checkbox   icon={<HttpsIcon />} checkedIcon={<HttpsIcon />} checked={state.checkedA} onChange={handleChange} name="checkedA" />}
        
-      label='Use HTTPS for secure communication' color="primary"/>
+      label='Use HTTPS for secure communication' classes={{label:classes.label}} color="primary"></FormControlLabel>
       <FormControlLabel
         control={
           <Checkbox
+
+          icon={<PaletteIcon />} checkedIcon={<PaletteIcon />}
             checked={state.checkedB}
             onChange={handleChange}
             name="checkedB"
             color="primary"/>}
-        label="Primary"/>
+        label="Inform about cookies" classes={{label:classes.label}} />
    
       <FormControlLabel
-        control={<GreenCheckbox checked={state.checkedG} onChange={handleChange} name="checkedG" />}
-        label="Custom color" />
+        control={<GreenCheckbox 
+            icon={<ScreenShareIcon />} checkedIcon={<ScreenShareIcon />}
+            checked={state.checkedG} onChange={handleChange} name="checkedG" />}
+        label="Let users know about your data sharing policy" classes={{label:classes.label}}  />
+
+
+<FormControlLabel
+        control={<YellowCheckbox 
+            icon={<SecurityIcon />} checkedIcon={<SecurityIcon />}
+            checked={state.checkedF} onChange={handleChange} name="checkedF" />}
+        label="Install programs to assess cyber risks" classes={{label:classes.label}} />
+
+<FormControlLabel
+        control={<BlueCheckbox 
+            icon={<TransferWithinAStationIcon />} checkedIcon={<TransferWithinAStationIcon />}
+            checked={state.checkedC} onChange={handleChange} name="checkedC" />}
+        label="Make sure all third-party vendors are GDPR compliant" classes={{label:classes.label}} />
+
+<FormControlLabel
+        control={<DeepPurpleCheckbox 
+            icon={<PolicyIcon />} checkedIcon={<PolicyIcon />}
+            checked={state.checkedD} onChange={handleChange} name="checkedD" />}
+        label="Let users know about your privacy notices and policies" classes={{label:classes.label}}  />
+
+
+
+
         </div>
         </div>
   

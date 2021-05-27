@@ -1,6 +1,4 @@
 
-// import ResultPage from './Components/pages/login/LoginPage'
-// import { Switch, Route } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';

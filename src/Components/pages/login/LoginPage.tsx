@@ -5,11 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 
 import Container from '@material-ui/core/Container';
-// import Profile from '../../components/profile/Profile';
-// import { getProfile, login } from '../../shared/api';
 
-// import AppContext, { ActionTypes } from '../../shared/app.context';
-// import { selectLogin } from '../../shared/redux/login/login.selectors';
 import styles from './LoginPage.module.scss';
 import { Button } from '@material-ui/core';
 // import { useDispatch, useSelector } from 'react-redux';

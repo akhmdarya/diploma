@@ -89,8 +89,14 @@ const FlagInfo = (flagName) => {
         { name: '_gid', description: "Allows to distinguish between users." },
         { name: '_ym_synced', description: "Enable ad serving or retargeting." },
         { name: '_lsid', description: "Allows to distinguish between visitors" },
+        { name: 'SID', description: "Used by google reCAPTCHA for storing a unique identifier for tracking purposes" },
+        { name: 'SIDCC', description: "Used to protect a user's data from unauthorized access" },
+        { name: 'NID', description: "Used to display YouTube videos embedded on the website" },
+    
+        { name: '1P_JAR', description: "These cookies are used by Google to display personalized ads on Google sites, based on recent searches and past interactions" },
         { name: '_reqNum', description: "Used to determine the ordinal number of the Metrica counter request in the browser" },
         { name: '_ym_retryReqs', description: "Contains requests that the counter could not send to the server" },
+        { name: 'sb_wiz.', description: "	This browser storage variable is used to store information about how the end user uses the site and any advertising that the end user may have seen before visiting the site." },
     ];
 
 

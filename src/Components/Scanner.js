@@ -254,7 +254,7 @@ const getData = async (url) => {
 
 
     const cookieFlags = ['_gid','_gat', '_ga','VISITOR_INFO1_LIVE*','ASP.NET_SessionId', '__zjc*','language','CookieControl',
-    '_ym_isad','_ym_uid','_ym_d','_ym_visorc_NNNNN'];
+    '_ym_isad','_ym_uid','_ym_d','_ym_visorc_NNNNN', '1P_JAR', 'NID', '	SSID', 'SIDCC', '	SID'];
     for (const cookieFlag of cookieFlags) {
       if ((cookieFlag ===cookie.name)) {
         cookie.flagCookies=cookieFlag ;
@@ -279,7 +279,7 @@ const getData = async (url) => {
     let flag =''
  
   
-    const localStorageFlags = ['_ym_synced', '_ym_retryReqs','_ym_uid', '_reqNum','_lsid'];
+    const localStorageFlags = ['_ym_synced', '_ym_retryReqs','_ym_uid', '_reqNum','_lsid', '	sb_wiz.'];
     for (const localStorageFlag of localStorageFlags) {
       if ((key.includes(localStorageFlag))) {
         // console.log('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');

@@ -105,8 +105,11 @@ justifyContent:"space-between"
    },
    mobile_menu_items:{
     borderBottom: "2px solid #cacaca",
+    color:'white',
+    fontWeight:'400',
 
-    fontSize:"22px"
+
+    fontSize:"20px"
    }
   
   }))
@@ -137,6 +140,10 @@ const Header =()=>{
   const goToLogin = () =>{
     
     history.push('/login');
+   }
+   const goToRegister = () =>{
+    
+    history.push('/register');
    }
 
 
@@ -176,7 +183,7 @@ const Header =()=>{
 
      
                <Button color= "primary" variant="contained" onClick={goToLogin} className={classes.buttons} >Sign In</Button>
-              <Button color= "secondary" variant="contained" className={classes.buttons} >Sign Up</Button>
+              <Button color= "secondary" variant="contained" onClick={goToRegister} className={classes.buttons} >Sign Up</Button>
             
               </Box>
 
@@ -269,7 +276,7 @@ const Header =()=>{
 
      
                <Button color= "primary" variant="contained" onClick={goToLogin} className={classes.buttons} >Sign In</Button>
-              <Button color= "secondary" variant="contained" className={classes.buttons} >Sign Up</Button>
+              <Button color= "secondary" variant="contained"  onClick={goToRegister} className={classes.buttons} >Sign Up</Button>
             
               </Box>
               

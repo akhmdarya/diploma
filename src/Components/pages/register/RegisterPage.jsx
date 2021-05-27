@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './Contact.module.scss';
+import styles from './RegisterPage.module.scss';
 import { Button, Typography,Paper } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -66,7 +66,7 @@ const styless = {
 init("user_nsMO4FPObBfq04EwgaiVC");
 
 
-const Contact = () => {
+const RegisterPage = () => {
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = (event) => {
@@ -76,11 +76,13 @@ const Contact = () => {
 
 
 
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const password = useRef({});
+    password.current = watch("password", "");
     const onSubmit = (data) => {
       // console.log(data);
       
-      sendForm('default_service', 'template_1', '#contact-form') 
+      sendForm('default_service', 'template_register', '#contact-form') 
         .then(function(response) {
           console.log('SUCCESS!', response.status, response.text);
           alert('Message was sended!');
@@ -89,6 +91,19 @@ const Contact = () => {
           alert('Failed');
         });
     }
+
+
+    const label = (
+      <span>I have read and agree to the&nbsp;
+        <a className={styles.link}
+          href="/policy"
+          target="_blank"
+          
+        >
+          Privacy Policy
+        </a>
+      </span>
+    )
     return (
 <>
       <Wallpaper></Wallpaper>
@@ -99,30 +114,47 @@ const Contact = () => {
 {/* <div className={styles.containerForm}> */}
 
 
-          <Typography style={styless.main} component="h1" variant='h4' align='center' >Contact us
-<Typography style={styless.subtitle} align='center' component="p">If you need help using our service GDPR Checker, please contact us by E-Mail gdpr.kz@gmail.com or comlete the Forms</Typography>
+          <Typography style={styless.main} component="h1" variant='h4' align='center' >Registration
+<Typography style={styless.subtitle} align='center' component="p">Register now</Typography>
       <div className='contact'>
         
         <form id='contact-form' className={styles.controls} onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.textInput}>
+          {/* <div className={styles.textInput}>
       <h4 className={styles.col25}>Your Name:</h4>
   <input  className={styles.input}  type='text' name='user_name' placeholder='Name' {...register("user_name", {
             required: "Required",
           })} />
-          </div>
+          </div> */}
           <div className={styles.textInput}>
-  <h4 className={styles.col25}>Your E-mail:</h4>
+  <h4 className={styles.col25}>E-mail:</h4>
   <input   className={styles.input} type='email' name='user_email' placeholder='Email' {...register("user_email", {
             required: "Required",
           })}  />
           </div>
           <div className={styles.textInput}>
-  <h4 className={styles.col25}>Describe problem:</h4>
-  <textarea  className={styles.input}  name='message' placeholder='Message' {...register("message", {
-            required: "Required",
-          })} />
+  <h4 className={styles.col25}>Password</h4>
+  <input   className={styles.input} type='password' name='password' placeholder='Password' 
+  {...register("password", {
+    required: "You must specify a password",
+    minLength: {
+      value: 8,
+      message: "Password must have at least 8 characters"
+    }
+          })}  
+          />
+           
+          </div> {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+          <div className={styles.textInput}>
+  <h4 className={styles.col25}>Confirm password</h4>
+  <input   className={styles.input} type='password' name='password1' placeholder='Confirm password as above' {...register("password1", {
+            required: "Please, repeat the password",
+            validate: value =>
+            value === password.current || "The passwords do not match",
+          })}  />
+        
+          
           </div>
-  {/* <br/> */}
+        {errors.password1 && <p className={styles.error}>{errors.password1.message}</p>}
   <Button variant="contained"  color="primary" type='submit' value='Send' >Send</Button>
 
   <FormControlLabel
@@ -136,8 +168,11 @@ const Contact = () => {
           
           />
         }
-        label="I understand my personal details will be used to communicate with me about this message."
-      />
+         
+         label={label}
+         >
+    
+        </FormControlLabel>
 
 </form>
 
@@ -149,4 +184,4 @@ const Contact = () => {
       </>
     );
   }
-  export default Contact;
+  export default RegisterPage;

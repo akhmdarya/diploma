@@ -120,6 +120,7 @@ let flagLoadCookies=-1;
 let bannerCookies=0;
 let flagDomain=0;
 let flagLoadDomain=-1;
+let sessionCookie=0;
 
 
     return (
@@ -139,6 +140,13 @@ let flagLoadDomain=-1;
 
 props.results.map((result) =>(
   (result.ip?
+    
+      (result.port===443 && result.status==='open')?
+      flagPortHTTPS=1
+      
+
+    
+    :
   (((result.port!==80) && (result.status==='open')) && ((result.port!==443) && (result.status==='open')))?
 <div className={classes.hidden}>
   {
@@ -150,6 +158,7 @@ props.results.map((result) =>(
   <div className={classes.hidden}>
   {
   flagPort=flagPort,
+  flagPortHTTPS=0,
   flagLoadPort=1
 }
 </div>
@@ -173,17 +182,21 @@ props.results.map((result) =>(
 ),
 
 (
-  result.name?
+  result.name && (result.expires!==-1)?
   (<div className={classes.hidden}>
     { flagLoadCookies=1,
       flagCookies+=1
     }</div>)
+    :
+    result.expires===-1?
+      sessionCookie+=1
     :
    ( <div className={classes.hidden}>
     {
        flagLoadCookies=1,
        flagCookies=flagCookies
   }</div>)
+
 ),
 (
   result.ping?
@@ -204,7 +217,8 @@ props.results.map((result) =>(
  
  {
 
- flagPort>0?
+ flagPort>0 && flagPortHTTPS!==1?
+ 
    
      <>
      <div className={classes.align}>
@@ -212,6 +226,37 @@ props.results.map((result) =>(
 <Typography variant="h5" gutterBottom>Site security. Open Ports : {flagPort}
       </Typography>   
   </div>
+  <Typography variant="h6" gutterBottom>No HTTPS and open ports 
+      </Typography>   
+      <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/art-25-gdpr/'>Art. 25 GDPR - Data protection by design and by default</a></Typography>
+
+
+  <Button className={classes.bottomSpace} onClick={handleChangePorts}>SHOW</Button>
+   
+
+   {(checkedPorts?
+         <div className={classes.container}>
+           <Typography variant="h5" gutterBottom>Ports:</Typography>
+            <TablePorts results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+  </>
+:
+flagPort>0 && flagPortHTTPS===1?
+   
+     <>
+     <div className={classes.align}>
+   <img src = {wrong} className={classes.img} />
+<Typography variant="h5" gutterBottom>Site security. Open Ports : {flagPort}
+      </Typography>   
+  </div>
+  <Typography variant="h6" gutterBottom>Some open ports:
+      </Typography>   
+      <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/art-25-gdpr/'>Art. 25 GDPR - Data protection by design and by default</a></Typography>
+
+
 
   <Button className={classes.bottomSpace} onClick={handleChangePorts}>SHOW</Button>
    
@@ -243,6 +288,8 @@ props.results.map((result) =>(
       </Typography></div>
       <Typography variant="h6" gutterBottom>You have no open ports.
       </Typography>
+      <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/art-25-gdpr/'>Art. 25 GDPR - Data protection by design and by default</a></Typography>
+
       <Button className={classes.bottomSpace}  onClick={handleChangePorts}>SHOW</Button>
    
 
@@ -275,6 +322,7 @@ props.results.map((result) =>(
 <Typography variant="h6" gutterBottom>
 Your site is collecting cookies, but our scanner has not received information that you have a banner warning about the collection of cookies.
 </Typography>
+<Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/recitals/no-30/'>Recital 30 - Online Identifiers for Profiling and Identification</a></Typography>
 <Button className={classes.bottomSpace}  onClick={handleChangeCookies}>SHOW</Button>
 
 
@@ -287,6 +335,8 @@ Your site is collecting cookies, but our scanner has not received information th
     <></>)
 }
 </>       //ЕСЛИ ЕСТЬ КУКИ
+
+
 :
 
 
@@ -309,13 +359,15 @@ Your site is collecting cookies, but our scanner has not received information th
   <img src = {correct} className={classes.img} />
 <Typography variant="h5" gutterBottom>Cookies
       </Typography></div>
+      <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/recitals/no-30/'>Recital 30 - Online Identifiers for Profiling and Identification</a></Typography>
+
 
       <Button className={classes.bottomSpace} onClick={handleChangeCookies}>SHOW</Button>
    
 
    {(checkedCookies?
          <div className={classes.container}>
-           <Typography variant="h5" gutterBottom>Storages:</Typography>
+           <Typography variant="h5" gutterBottom>Cookies:</Typography>
             <TableCookies results={props.results}/>
          </div>
          :
@@ -323,14 +375,17 @@ Your site is collecting cookies, but our scanner has not received information th
    }
     </>
 
-    :  //НЕТ КУК
-    flagCookies===0 ?
+    :  //НЕТ КУК или только сессионные
+    flagCookies===0 || (flagCookies===0 && sessionCookie>0)?
 
     <>
      <div className={classes.align}>
   <img src = {correct} className={classes.img} />
 <Typography variant="h5" gutterBottom>Cookies
       </Typography></div>
+      <Typography variant="h6" gutterBottom> Your site contains only session cookies, or does not contain them at all</Typography>
+      <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/recitals/no-30/'>Recital 30 - Online Identifiers for Profiling and Identification</a></Typography>
+
 
       <Button className={classes.bottomSpace} onClick={handleChangeCookies}>SHOW</Button>
    
@@ -357,6 +412,8 @@ Your site is collecting cookies, but our scanner has not received information th
   <Typography variant="h6" gutterBottom>  Perhaps our service did not find your banner with a notification about the collection of cookies,
          or such a banner is not on your site. However, below you can view the cookies that your site collects.
          </Typography>
+         <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/recitals/no-30/'>Recital 30 - Online Identifiers for Profiling and Identification</a></Typography>
+
    <Button className={classes.bottomSpace} onClick={handleChangeCookies}>SHOW</Button>
     
  
@@ -372,76 +429,7 @@ Your site is collecting cookies, but our scanner has not received information th
 }
 
 
-{/* 
-<Typography variant="h5" gutterBottom>Personal data is transmitted to 'adequate countries'
-      </Typography>
-      <Button  onClick={handleChange}>SHOW</Button>
 
-{checked?
-      <div className={classes.container}>
-        <Typography variant="h5" gutterBottom>Domains:</Typography>
-         <TableDomain results={props.results}/>
-      </div>
-      :
-      <></>
-}
-*/}
-
-
-{
-
-flagStorages>0?
-   
-     <>
-     <div className={classes.align}>
-   <img src = {question} className={classes.img} />
-<Typography variant="h5" gutterBottom>Data in Local and Session Storages: {flagStorages}
-      </Typography>   
-  </div>
-
-  <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button>
-   
-
-   {(checkedStorages?
-         <div className={classes.container}>
-           <Typography variant="h5" gutterBottom>Storages:</Typography>
-            <TableStorages results={props.results}/>
-         </div>
-         :
-         <></>)
-   }
-  </>
-:
-   
-   flagLoadStorages===-1?
-  <>
-   <div className={classes.align}>
- <img src = {load} className={classes.loader} />
-<Typography variant="h5" gutterBottom>Data in Local and Session Storages
-      </Typography></div>
-  </>
-
-  :
-  <> 
-   <div className={classes.align}>
-  <img src = {correct} className={classes.img} />
-<Typography variant="h5" gutterBottom>Data in Local and Session Storages
-      </Typography></div>
-
-      <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button>
-   
-
-   {(checkedStorages?
-         <div className={classes.container}>
-           <Typography variant="h5" gutterBottom>Storages:</Typography>
-            <TableStorages results={props.results}/>
-         </div>
-         :
-         <></>)
-   }
-  </>
-
-}
 {
 
 flagDomain>0?
@@ -452,6 +440,10 @@ flagDomain>0?
 <Typography variant="h5" gutterBottom>Domains: {flagDomain }
       </Typography>   
   </div>
+  <Typography variant="h6" gutterBottom>Domain cookies address the location to and from which the information is sent.</Typography>
+  <Typography variant="h6" gutterBottom> Perhaps our service did not find a notification about the transfer to third parties or there are no such rules on your site. However, below you can view the domains that your site collects and transfers.</Typography>
+  <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/chapter-5/'>Chapter 5 - Transfers of personal data to third countries or international organisations</a></Typography>
+  <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/recitals/no-101/'>Recital 101 - General Principles for International Data Transfers</a></Typography>
 
   <Button className={classes.bottomSpace} onClick={handleChangeDomain}>SHOW</Button>
    
@@ -481,6 +473,11 @@ flagDomain>0?
   <img src = {correct} className={classes.img} />
 <Typography variant="h5" gutterBottom>Domains
       </Typography></div>
+      <Typography variant="h6" gutterBottom>Domain cookies address the location to and from which the information is sent.</Typography>
+  <Typography variant="h6" gutterBottom> Your site does not contain domain cookies</Typography>
+  <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/chapter-5/'>Chapter 5 - Transfers of personal data to third countries or international organisations</a></Typography>
+  <Typography variant="h6" gutterBottom><a target='_blank' href='https://gdpr-info.eu/recitals/no-101/'>Recital 101 - General Principles for International Data Transfers</a></Typography>
+
 
       <Button className={classes.bottomSpace}s onClick={handleChangeDomain}>SHOW</Button>
    
@@ -489,6 +486,84 @@ flagDomain>0?
          <div className={classes.container}>
            {/* <Typography variant="h5" gutterBottom>Domains:</Typography> */}
             <TableDomain results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+  </>
+
+}
+{
+
+flagStorages>0?
+   
+     <>
+     <div className={classes.align}>
+   <img src = {question} className={classes.img} />
+<Typography variant="h5" gutterBottom>Data in Local and Session Storages: {flagStorages}
+      </Typography>   
+  </div>
+  <Typography variant="h6" gutterBottom> There are other technologies, like HTML5 Local Storage that do similar things as cookies, and these are also covered by the legislation, but as cookies are the most common technology in use, it has become known as the <a href='https://www.cookielaw.org/the-cookie-law/' target='_blank'>Cookie Law</a>.</Typography>
+
+  <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button>
+   
+
+   {(checkedStorages?
+         <div className={classes.container}>
+           <Typography variant="h5" gutterBottom>Storages:</Typography>
+            <TableStorages results={props.results}/>
+         </div>
+         :
+         <></>)
+   }
+  </>
+:
+   
+   flagLoadStorages===-1?
+  <>
+   <div className={classes.align}>
+ <img src = {load} className={classes.loader} />
+<Typography variant="h5" gutterBottom>Data in Local and Session Storages
+      </Typography></div>
+  </>
+
+  : flagStorages===0?
+  <> 
+   <div className={classes.align}>
+  <img src = {correct} className={classes.img} />
+<Typography variant="h5" gutterBottom>Data in Local and Session Storages
+      </Typography></div>
+      <Typography variant="h6" gutterBottom> No data in Local and Session Storages</Typography>
+      <Typography variant="h6" gutterBottom> There are other technologies, like HTML5 Local Storage that do similar things as cookies, and these are also covered by the legislation, but as cookies are the most common technology in use, it has become known as the <a href='https://www.cookielaw.org/the-cookie-law/' target='_blank'>Cookie Law</a>.</Typography>
+
+      {/* <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button> */}
+   
+
+   {/* {(checkedStorages?
+         <div className={classes.container}>
+           <Typography variant="h5" gutterBottom>Storages:</Typography>
+            <TableStorages results={props.results}/>
+         </div>
+         :
+         <></>)
+   } */}
+  </>
+  :
+
+  <> 
+   <div className={classes.align}>
+  <img src = {question} className={classes.img} />
+<Typography variant="h5" gutterBottom>Data in Local and Session Storages
+      </Typography></div>
+      <Typography variant="h6" gutterBottom> There are other technologies, like HTML5 Local Storage that do similar things as cookies, and these are also covered by the legislation, but as cookies are the most common technology in use, it has become known as the <a href='https://www.cookielaw.org/the-cookie-law/' target='_blank'>Cookie Law</a>.</Typography>
+
+      <Button className={classes.bottomSpace} onClick={handleChangeStorages}>SHOW</Button>
+   
+
+   {(checkedStorages?
+         <div className={classes.container}>
+           <Typography variant="h5" gutterBottom>Storages:</Typography>
+            <TableStorages results={props.results}/>
          </div>
          :
          <></>)
