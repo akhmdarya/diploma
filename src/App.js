@@ -44,6 +44,8 @@ function App() {
            cookieName="ACCEPTANCE"
 
 
+
+           
           debug={true} 
 style={styles.banner}
 
