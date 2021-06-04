@@ -2,6 +2,7 @@ var express = require("express");
 
 var portscanner = require('portscanner');
 
+
 var cors = require('cors');
 const isPortReachable = require('is-port-reachable');
 var app = express();
@@ -10,14 +11,23 @@ app.listen(4400, () => {
 });
 app.use(cors())
 
+app.use(express.static(__dirname + '/build'));
+
 
 app.get("/parse", async (req, res, next) => {
   const queryObject = req.query.url;
   const kek = await checker(queryObject);
   console.log(kek);
   res.send(kek);
+
 });
- 
+
+
+
+app.get("/", async (req, res) => {
+  res.sendFile(__dirname + '/build/index.html');
+});
+
 
 
 const puppeteer = require('puppeteer');
@@ -142,7 +152,7 @@ const getFlags = (entries) => {
 
   // set domain flags
   const domainFlags = {
-   
+
     'fonts.googleapis.com': 'g_fonts',
     'stats.g.doubleclick.net': 'Google_DoubleClick_Ads',
     'googleads.g.doubleclick.net ': 'Google DoubleClick Ads',
@@ -150,7 +160,7 @@ const getFlags = (entries) => {
     'connect.facebook.net': 'Facebook_Connect',
     'ping.chartbeat.net': 'Chartbeat_Analytics',
     'bam.nr-data.net': 'nr_in_us',
-  
+
   };
   for (const domain of Object.keys(flags)) {
     if (domain in domainFlags) {
@@ -247,20 +257,20 @@ const getData = async (url) => {
     data.domains.push(result);
   }
   for (cookie of browserData.cookies.cookies) {
-    const fields = ['name', 'value', 'domain', 'path', 'expires', 'size', 'httpOnly', 'secure', 'session', 'priority', 'sameSite','flagCookies']
+    const fields = ['name', 'value', 'domain', 'path', 'expires', 'size', 'httpOnly', 'secure', 'session', 'priority', 'sameSite', 'flagCookies']
 
 
 
 
 
-    const cookieFlags = ['_gid','_gat', '_ga','VISITOR_INFO1_LIVE*','ASP.NET_SessionId', '__zjc*','language','CookieControl',
-    '_ym_isad','_ym_uid','_ym_d','_ym_visorc_NNNNN', '1P_JAR', 'NID', '	SSID', 'SIDCC', '	SID'];
+    const cookieFlags = ['_gid', '_gat', '_ga', 'VISITOR_INFO1_LIVE*', 'ASP.NET_SessionId', '__zjc*', 'language', 'CookieControl',
+      '_ym_isad', '_ym_uid', '_ym_d', '_ym_visorc_NNNNN', '1P_JAR', 'NID', '	SSID', 'SIDCC', '	SID'];
     for (const cookieFlag of cookieFlags) {
-      if ((cookieFlag ===cookie.name)) {
-        cookie.flagCookies=cookieFlag ;
- 
-       }
-   
+      if ((cookieFlag === cookie.name)) {
+        cookie.flagCookies = cookieFlag;
+
+      }
+
     }
 
     data.cookies.push(cookie);
@@ -276,63 +286,63 @@ const getData = async (url) => {
   }
   for (key of Object.keys(browserData.localStorage)) {
 
-    let flag =''
- 
-  
-    const localStorageFlags = ['_ym_synced', '_ym_retryReqs','_ym_uid', '_reqNum','_lsid', '	sb_wiz.'];
+    let flag = ''
+
+
+    const localStorageFlags = ['_ym_synced', '_ym_retryReqs', '_ym_uid', '_reqNum', '_lsid', '	sb_wiz.'];
     for (const localStorageFlag of localStorageFlags) {
       if ((key.includes(localStorageFlag))) {
         // console.log('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
-        data.localStorage.flaglocalStorage=localStorageFlag ;
-        data.localStorage.push({flaglocalStorage:browserData.localStorage.flaglocalStorage})
-        flag= data.localStorage.flaglocalStorage;
- 
-       }
+        data.localStorage.flaglocalStorage = localStorageFlag;
+        data.localStorage.push({ flaglocalStorage: browserData.localStorage.flaglocalStorage })
+        flag = data.localStorage.flaglocalStorage;
+
+      }
     }
-     data.localStorage.push({
+    data.localStorage.push({
       key: key,
       value: browserData.localStorage[key],
       type: "local",
-       flaglocalStorage:flag
-     
+      flaglocalStorage: flag
+
     });
-  
+
   }
   return data;
 
 };
 
- function checkPorts(url1){
+function checkPorts(url1) {
   let response = [];
   const Evilscan = require('evilscan');
 
-const options = {
-    target:url1,
-    port:'1-65535',
-    status:'O', // Timeout, Refused, Open, Unreachable
-    
-    banner:true  
-};
-new Evilscan(options, (err, scan) =>{
+  const options = {
+    target: url1,
+    port: '1-65535',
+    status: 'O', // Timeout, Refused, Open, Unreachable
+
+    banner: true
+  };
+  new Evilscan(options, (err, scan) => {
 
     if (err) {
-        console.log(err);
-        return;
+      console.log(err);
+      return;
     }
 
     scan.on('result', data => {
-              response.push(data);        
+      response.push(data);
     });
     scan.on('error', err => {
-        throw new Error(data.toString());
+      throw new Error(data.toString());
 
     });
     scan.on('done', () => {
     });
 
     scan.run();
-});
-return response;
+  });
+  return response;
 
 }
 
@@ -340,21 +350,21 @@ return response;
 
 async function checker(url1) {
   let response = [];
- response= checkPorts(url1);
-//url1='82.200.154.121';
-if ( /(([0-9]{1,3}[\.]){3}[0-9]{1,3})/.test(url1) ){
- dns.lookupService(url1, 80,  (err, hostname, service) => {
-  console.log(hostname, service);
-  url1=hostname;
-  console.log(url1+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-  // Prints: localhost ssh
-});
-}
+  response = checkPorts(url1);
+  //url1='82.200.154.121';
+  if (/(([0-9]{1,3}[\.]){3}[0-9]{1,3})/.test(url1)) {
+    dns.lookupService(url1, 80, (err, hostname, service) => {
+      console.log(hostname, service);
+      url1 = hostname;
+      console.log(url1 + "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+      // Prints: localhost ssh
+    });
+  }
   const arg = url1;
   const url = arg.startsWith('http') ? arg : 'http://' + arg;
 
-   
- 
+
+
   try {
 
     const data = await getData(url);
@@ -372,5 +382,5 @@ if ( /(([0-9]{1,3}[\.]){3}[0-9]{1,3})/.test(url1) ){
   }
 
   return response;
- 
-} 
+
+}
