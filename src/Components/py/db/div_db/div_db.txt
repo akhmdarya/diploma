@@ -15,3 +15,7 @@ onetrust-policy
 onetrust-banner-sdk
 hs-cookie-notification-position-bottom
 hs-eu-policy-wording
+consent-banner
+cookies
+cookie
+js-consent-banner

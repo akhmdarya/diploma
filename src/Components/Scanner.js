@@ -29,7 +29,9 @@ app.get("/", async (req, res) => {
 });
 
 
-
+app.get("*", async (req, res) =>{
+  res.sendFile(__dirname+'/build/index.html');
+})
 const puppeteer = require('puppeteer');
 const PuppeteerHar = require('puppeteer-har');
 const tcpp = require('tcp-ping');
